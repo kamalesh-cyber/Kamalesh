@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CSI College of Engineering — Ketti, The Nilgiris</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --green: #1b4332;
+      --green-deep: #0a1f17;
+      --green-mid: #2d6a4f;
+      --red: #d62828;
+      --red-light: #ff6b6b;
+      --cream: #f5f0e8;
+      --white: #ffffff;
+      --gold: #c9a84c;
+      --gold-light: #f0d080;
+      --glass-bg: rgba(255,255,255,0.06);
+      --glass-border: rgba(255,255,255,0.15);
+      --radius: 16px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: #050e09;
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    /* LIQUID GLASS */
+    .glass {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+    }
+    .glass-strong {
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(40px);
+      -webkit-backdrop-filter: blur(40px);
+      border: 1px solid rgba(255,255,255,0.2);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.15), 0 8px 32px rgba(0,0,0,0.3);
+    }
+
+    /* TYPOGRAPHY */
+    .font-serif { font-family: 'Instrument Serif', serif; }
+    .italic { font-style: italic; }
+
+    /* NOISE TEXTURE OVERLAY */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.4;
+    }
+
+    /* ── TOPBAR ── */
+    .topbar {
+      background: var(--green-deep);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 9px 0;
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+    }
+    .topbar-inner {
+      max-width: 1280px; margin: 0 auto; padding: 0 32px;
+      display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    }
+    .topbar-left { color: rgba(255,255,255,0.5); display: flex; align-items: center; gap: 6px; }
+    .topbar-left span { color: var(--gold); font-weight: 500; }
+    .topbar-links { display: flex; gap: 24px; }
+    .topbar-links a { color: rgba(255,255,255,0.45); transition: color 0.2s; }
+    .topbar-links a:hover { color: var(--gold-light); }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: fixed; top: 16px; left: 0; right: 0;
+      z-index: 200;
+      padding: 0 32px;
+      display: flex; align-items: center; justify-content: space-between;
+      pointer-events: none;
+    }
+    .nav-logo {
+      pointer-events: all;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .nav-logo-mark {
+      width: 44px; height: 44px;
+      background: linear-gradient(135deg, var(--green) 0%, var(--green-mid) 100%);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.1rem;
+      color: var(--gold-light);
+      border: 1px solid rgba(255,255,255,0.15);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      flex-shrink: 0;
+    }
+    .nav-logo-text { line-height: 1.2; }
+    .nav-logo-text .name {
+      font-family: 'Instrument Serif', serif;
+      font-size: 0.95rem;
+      color: var(--white);
+    }
+    .nav-logo-text .sub {
+      font-size: 0.66rem;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.04em;
+    }
+    .nav-pill {
+      pointer-events: all;
+      display: flex; align-items: center; gap: 2px;
+      background: rgba(10,31,23,0.85);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 100px;
+      padding: 6px 8px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+    }
+    .nav-pill a {
+      padding: 7px 16px;
+      border-radius: 100px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.65);
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .nav-pill a:hover { color: var(--white); background: rgba(255,255,255,0.08); }
+    .nav-pill .nav-apply {
+      background: var(--white);
+      color: #050e09;
+      font-weight: 600;
+      padding: 7px 18px;
+      margin-left: 4px;
+    }
+    .nav-pill .nav-apply:hover { background: var(--cream); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex; flex-direction: column;
+      justify-content: center;
+      overflow: hidden;
+      padding: 120px 32px 80px;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 30%, rgba(27,67,50,0.6) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 20% 80%, rgba(45,106,79,0.3) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 50% at 50% 50%, rgba(214,40,40,0.05) 0%, transparent 60%),
+        #050e09;
+    }
+    .hero-grid-overlay {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent);
+    }
+    .hero-inner {
+      max-width: 1280px; margin: 0 auto; width: 100%;
+      position: relative; z-index: 2;
+      display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 80px; align-items: center;
+    }
+    .hero-announce {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(214,40,40,0.12);
+      border: 1px solid rgba(214,40,40,0.3);
+      border-radius: 100px;
+      padding: 5px 14px 5px 6px;
+      margin-bottom: 28px;
+    }
+    .announce-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--red-light);
+      box-shadow: 0 0 8px var(--red-light);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--red-light); }
+      50% { opacity: 0.5; box-shadow: 0 0 16px var(--red-light); }
+    }
+    .announce-text { font-size: 0.76rem; font-weight: 500; color: #ffaaaa; letter-spacing: 0.04em; }
+    .hero h1 {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-size: clamp(3rem, 5.5vw, 5.2rem);
+      line-height: 1.05;
+      letter-spacing: -1px;
+      margin-bottom: 24px;
+      color: var(--white);
+    }
+    .hero h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: 1.05rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.6);
+      max-width: 480px;
+      margin-bottom: 40px;
+      line-height: 1.7;
+    }
+    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; margin-bottom: 64px; }
+    .btn-hero {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 32px;
+      border-radius: 100px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.25s;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: var(--white);
+      color: #050e09;
+    }
+    .btn-primary:hover { background: var(--cream); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(255,255,255,0.15); }
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.25);
+      color: var(--white);
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.4); }
+    .btn-arrow { font-size: 1rem; }
+
+    /* Partner logos ticker */
+    .hero-trust {
+      display: flex; align-items: center; gap: 20px;
+    }
+    .trust-label {
+      font-size: 0.72rem; font-weight: 500;
+      color: rgba(255,255,255,0.3);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      white-space: nowrap;
+    }
+    .trust-divider { width: 1px; height: 28px; background: rgba(255,255,255,0.12); flex-shrink: 0; }
+    .trust-badges { display: flex; gap: 12px; flex-wrap: wrap; }
+    .trust-badge {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 100px;
+      padding: 5px 14px;
+    }
+
+    /* Hero right: stat cards */
+    .hero-stats-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+    }
+    .hero-stat-card {
+      padding: 24px;
+      border-radius: var(--radius);
+      position: relative; overflow: hidden;
+    }
+    .hero-stat-card::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .stat-label-sm {
+      font-size: 0.68rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 8px;
+    }
+    .stat-value {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-size: 2.4rem;
+      color: var(--white);
+      line-height: 1;
+    }
+    .stat-desc { font-size: 0.75rem; color: rgba(255,255,255,0.45); margin-top: 4px; }
+    .stat-accent { color: var(--gold-light); }
+
+    /* hero scroll cue */
+    .hero-scroll {
+      position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      color: rgba(255,255,255,0.25); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+      animation: scrollBounce 2s ease-in-out infinite;
+    }
+    @keyframes scrollBounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(6px); }
+    }
+    .scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, rgba(255,255,255,0.3), transparent); }
+
+    /* ── ANNOUNCEMENT TICKER ── */
+    .ticker-wrap {
+      background: rgba(214,40,40,0.08);
+      border-top: 1px solid rgba(214,40,40,0.2);
+      border-bottom: 1px solid rgba(214,40,40,0.2);
+      padding: 12px 0;
+      overflow: hidden;
+      position: relative;
+      z-index: 10;
+    }
+    .ticker-inner { display: flex; align-items: center; gap: 0; }
+    .ticker-label {
+      background: var(--red);
+      color: var(--white);
+      font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 4px 16px;
+      border-radius: 4px;
+      margin-right: 20px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .ticker-track {
+      display: flex; gap: 0;
+      animation: ticker 35s linear infinite;
+      white-space: nowrap;
+    }
+    .ticker-track:hover { animation-play-state: paused; }
+    @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .ticker-item {
+      font-size: 0.82rem; font-weight: 400;
+      color: rgba(255,255,255,0.65);
+      padding: 0 40px;
+      border-right: 1px solid rgba(255,255,255,0.1);
+    }
+    .ticker-item a { color: rgba(255,255,255,0.9); font-weight: 500; }
+    .ticker-item a:hover { color: var(--gold-light); }
+
+    /* ── STATS STRIP ── */
+    .stats-strip {
+      padding: 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      background: rgba(27,67,50,0.15);
+    }
+    .stats-grid {
+      max-width: 1280px; margin: 0 auto; padding: 0 32px;
+      display: grid; grid-template-columns: repeat(6, 1fr);
+    }
+    .stat-strip-item {
+      padding: 28px 24px;
+      border-right: 1px solid rgba(255,255,255,0.06);
+      text-align: center;
+    }
+    .stat-strip-item:last-child { border-right: none; }
+    .stat-strip-num {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-size: 2rem;
+      color: var(--white);
+      line-height: 1;
+    }
+    .stat-strip-lbl {
+      font-size: 0.7rem; font-weight: 500;
+      color: rgba(255,255,255,0.35);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 6px;
+    }
+
+    /* ── SECTION WRAPPER ── */
+    .section { padding: 100px 32px; }
+    .container { max-width: 1280px; margin: 0 auto; }
+    .section-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+    .section-eyebrow::before {
+      content: ''; width: 24px; height: 1px; background: var(--gold); opacity: 0.6;
+    }
+    .section-heading {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-size: clamp(2.4rem, 4vw, 3.6rem);
+      line-height: 1.1;
+      letter-spacing: -0.5px;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      font-size: 1rem; font-weight: 300;
+      color: rgba(255,255,255,0.5);
+      max-width: 540px;
+      line-height: 1.7;
+    }
+
+    /* ── PROGRAMS ── */
+    .programs-section {
+      background: #050e09;
+    }
+    .school-block { margin-bottom: 56px; }
+    .school-header-row {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .school-icon-wrap {
+      width: 42px; height: 42px;
+      background: linear-gradient(135deg, var(--green) 0%, var(--green-mid) 100%);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .school-name-text {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-size: 1.2rem;
+      color: rgba(255,255,255,0.75);
+    }
+    .programs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 14px;
+    }
+    .program-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius);
+      padding: 22px;
+      transition: all 0.3s;
+      cursor: pointer;
+      position: relative; overflow: hidden;
+    }
+    .program-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 2px;
+      background: linear-gradient(90deg, var(--green-mid), transparent);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .program-card:hover {
+      background: rgba(27,67,50,0.25);
+      border-color: rgba(45,106,79,0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.3);
+    }
+    .program-card:hover::before { transform: scaleX(1); }
+    .prog-emoji { font-size: 1.5rem; margin-bottom: 12px; }
+    .prog-name { font-weight: 600; font-size: 0.88rem; color: var(--white); line-height: 1.45; }
+    .prog-level { font-size: 0.72rem; color: rgba(255,255,255,0.35); margin-top: 6px; font-weight: 400; text-transform: uppercase; letter-spacing: 0.06em; }
+    .prog-link {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 0.75rem; font-weight: 600;
+      color: var(--gold);
+      margin-top: 14px;
+      transition: gap 0.2s;
+    }
+    .program-card:hover .prog-link { gap: 8px; }
+
+    /* ── WHY SECTION ── */
+    .why-section {
+      background: linear-gradient(180deg, #050e09 0%, #0d2318 50%, #050e09 100%);
+      border-top: 1px solid rgba(255,255,255,0.05);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .why-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px; margin-top: 48px;
+    }
+    .why-card {
+      padding: 28px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,0.07);
+      background: rgba(255,255,255,0.025);
+      transition: all 0.3s;
+      position: relative; overflow: hidden;
+    }
+    .why-card::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--green-mid), transparent);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .why-card:hover { border-color: rgba(45,106,79,0.35); transform: translateY(-4px); }
+    .why-card:hover::after { opacity: 1; }
+    .why-icon-wrap {
+      width: 44px; height: 44px;
+      background: rgba(27,67,50,0.5);
+      border: 1px solid rgba(45,106,79,0.3);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: 18px;
+    }
+    .why-title { font-weight: 600; font-size: 0.9rem; color: var(--white); margin-bottom: 8px; }
+    .why-desc { font-size: 0.8rem; font-weight: 300; color: rgba(255,255,255,0.5); line-height: 1.6; }
+
+    /* ── ACCREDITATIONS ── */
+    .accred-section { background: #050e09; }
+    .accred-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px; margin-top: 48px;
+    }
+    .accred-card {
+      background: rgba(255,255,255,0.025);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: var(--radius);
+      padding: 24px;
+      display: flex; gap: 16px; align-items: flex-start;
+      transition: all 0.25s;
+    }
+    .accred-card:hover { background: rgba(27,67,50,0.2); border-color: rgba(45,106,79,0.35); }
+    .accred-icon {
+      width: 44px; height: 44px;
+      background: rgba(201,168,76,0.12);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; flex-shrink: 0;
+    }
+    .accred-name { font-weight: 600; font-size: 0.88rem; color: var(--white); margin-bottom: 6px; }
+    .accred-desc { font-size: 0.78rem; font-weight: 300; color: rgba(255,255,255,0.45); line-height: 1.55; }
+
+    /* ── NOTABLE VISITORS ── */
+    .visitors-section {
+      background: linear-gradient(180deg, #050e09 0%, #08150e 100%);
+    }
+    .visitors-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px; margin-top: 48px;
+    }
+    .visitor-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius);
+      padding: 28px;
+      transition: all 0.3s;
+      position: relative; overflow: hidden;
+    }
+    .visitor-card::before {
+      content: '';
+      position: absolute; top: 0; right: 0;
+      width: 80px; height: 80px;
+      background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
+    }
+    .visitor-card:hover { border-color: rgba(201,168,76,0.25); transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.3); }
+    .visitor-avatar {
+      width: 52px; height: 52px;
+      background: linear-gradient(135deg, var(--green) 0%, var(--green-mid) 100%);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Instrument Serif', serif;
+      font-size: 1rem; color: var(--gold-light);
+      margin-bottom: 16px;
+      border: 1px solid rgba(201,168,76,0.2);
+    }
+    .visitor-name { font-weight: 600; font-size: 0.98rem; color: var(--white); margin-bottom: 4px; }
+    .visitor-role { font-size: 0.78rem; color: var(--gold); font-weight: 500; margin-bottom: 8px; }
+    .visitor-note { font-size: 0.75rem; color: rgba(255,255,255,0.4); line-height: 1.55; }
+
+    /* ── INFRASTRUCTURE ── */
+    .infra-section { background: #050e09; }
+    .infra-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 14px; margin-top: 48px;
+    }
+    .infra-card {
+      background: rgba(255,255,255,0.025);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: var(--radius);
+      padding: 24px;
+      display: flex; gap: 16px; align-items: flex-start;
+      transition: all 0.25s;
+    }
+    .infra-card:hover { background: rgba(27,67,50,0.18); border-color: rgba(45,106,79,0.3); }
+    .infra-icon-badge {
+      width: 44px; height: 44px;
+      background: rgba(27,67,50,0.6);
+      border: 1px solid rgba(45,106,79,0.25);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; flex-shrink: 0;
+    }
+    .infra-org { font-weight: 600; font-size: 0.88rem; color: var(--white); margin-bottom: 5px; }
+    .infra-desc { font-size: 0.75rem; color: rgba(255,255,255,0.4); line-height: 1.55; }
+
+    /* ── CTA BAND ── */
+    .cta-band {
+      margin: 0 32px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, var(--green) 0%, #1a5c3e 50%, var(--green-deep) 100%);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 72px 64px;
+      position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 40px; flex-wrap: wrap;
+    }
+    .cta-band::before {
+      content: '';
+      position: absolute; top: -100px; right: -100px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 60%);
+    }
+    .cta-band::after {
+      content: '';
+      position: absolute; bottom: -80px; left: 200px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(214,40,40,0.1) 0%, transparent 60%);
+    }
+    .cta-band-left { position: relative; z-index: 2; }
+    .cta-band h2 {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      line-height: 1.15;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .cta-band p { font-size: 0.98rem; font-weight: 300; color: rgba(255,255,255,0.65); max-width: 400px; }
+    .cta-band-btns { display: flex; gap: 14px; flex-wrap: wrap; position: relative; z-index: 2; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--green-deep);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 72px 32px 0;
+      margin-top: 80px;
+    }
+    .footer-grid {
+      max-width: 1280px; margin: 0 auto;
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 56px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .footer-brand-name {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-size: 1.2rem;
+      color: var(--white);
+      margin-bottom: 14px;
+    }
+    .footer-brand p {
+      font-size: 0.82rem; font-weight: 300;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.7; margin-bottom: 20px;
+    }
+    .footer-contact { font-size: 0.78rem; color: rgba(255,255,255,0.45); margin-bottom: 7px; }
+    .footer-contact strong { color: rgba(255,255,255,0.75); }
+    .footer-col-title {
+      font-size: 0.68rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.12em;
+      color: var(--gold);
+      margin-bottom: 18px;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 10px; }
+    .footer-col ul li a {
+      font-size: 0.82rem; font-weight: 300;
+      color: rgba(255,255,255,0.4);
+      transition: color 0.2s;
+    }
+    .footer-col ul li a:hover { color: var(--white); }
+    .footer-bottom {
+      max-width: 1280px; margin: 0 auto;
+      padding: 20px 0;
+      display: flex; justify-content: space-between; align-items: center; gap: 12px;
+      font-size: 0.75rem; color: rgba(255,255,255,0.25);
+    }
+    .footer-bottom-links { display: flex; gap: 20px; }
+    .footer-bottom-links a { color: rgba(255,255,255,0.25); transition: color 0.2s; }
+    .footer-bottom-links a:hover { color: rgba(255,255,255,0.6); }
+
+    /* ── FADE-IN ANIMATIONS ── */
+    .fade-up {
+      opacity: 0; transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .fade-up-delay-1 { transition-delay: 0.1s; }
+    .fade-up-delay-2 { transition-delay: 0.2s; }
+    .fade-up-delay-3 { transition-delay: 0.3s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+      .hero-stats-grid { grid-template-columns: repeat(4, 1fr); }
+      nav { padding: 0 20px; }
+    }
+    @media (max-width: 768px) {
+      .section { padding: 72px 20px; }
+      .stats-grid { grid-template-columns: repeat(3, 1fr); }
+      .hero-stats-grid { display: none; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .nav-pill { display: none; }
+      .cta-band { padding: 48px 32px; margin: 0 20px; }
+      footer { padding: 56px 20px 0; }
+    }
+    @media (max-width: 600px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr; }
+      .hero { padding: 100px 20px 80px; }
+      .topbar { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── TOP BAR ── -->
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="topbar-left">
+        <span>📞</span>
+        <span>+91 93450 99377</span>
+        &nbsp;·&nbsp;
+        <span>0423 – 2517474, 2517581–83</span>
+      </div>
+      <div class="topbar-links">
+        <a href="https://csice.edu.in/">Students</a>
+        <a href="https://csice.edu.in/">Faculty</a>
+        <a href="https://csice.edu.in/">Alumni</a>
+        <a href="https://csice.edu.in/courses-offered/">Courses</a>
+        <a href="mailto:csice@csice.edu.in">csice@csice.edu.in</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── NAVBAR ── -->
+  <nav>
+    <div class="nav-logo">
+      <div class="nav-logo-mark">CSI</div>
+      <div class="nav-logo-text">
+        <div class="name">CSI College of Engineering</div>
+        <div class="sub">Ketti, The Nilgiris · Anna University · AICTE</div>
+      </div>
+    </div>
+    <div class="nav-pill">
+      <a href="#about">About</a>
+      <a href="#programs">Programs</a>
+      <a href="#accreditations">Accreditations</a>
+      <a href="#contact">Contact</a>
+      <a href="https://csice.edu.in/" class="nav-apply">Apply Now →</a>
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section class="hero" id="about">
+    <div class="hero-bg"></div>
+    <div class="hero-grid-overlay"></div>
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-announce fade-up">
+          <div class="announce-dot"></div>
+          <span class="announce-text">Admissions Open 2025–26 · Apply via TNEA</span>
+        </div>
+        <h1 class="fade-up fade-up-delay-1">
+          Engineering<br>Excellence in<br>the <em>Nilgiris</em>
+        </h1>
+        <p class="hero-sub fade-up fade-up-delay-2">
+          CSI College of Engineering — founded by the Church of South India, set amid the scenic Ketti Valley near Ooty. AICTE approved, affiliated to Anna University since 1998. Where knowledge meets purpose.
+        </p>
+        <div class="hero-btns fade-up fade-up-delay-2">
+          <a href="https://csice.edu.in/courses-offered/" class="btn-hero btn-primary">
+            Explore Programs <span class="btn-arrow">↗</span>
+          </a>
+          <a href="#contact" class="btn-hero btn-ghost">Visit Campus</a>
+        </div>
+        <div class="hero-trust fade-up fade-up-delay-3">
+          <span class="trust-label">Recognised by</span>
+          <div class="trust-divider"></div>
+          <div class="trust-badges">
+            <span class="trust-badge">AICTE</span>
+            <span class="trust-badge">Anna Univ.</span>
+            <span class="trust-badge">Startup TN</span>
+            <span class="trust-badge">TOI 2024</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-stats-grid">
+        <div class="hero-stat-card glass fade-up fade-up-delay-1">
+          <div class="stat-label-sm">Established</div>
+          <div class="stat-value">1998</div>
+          <div class="stat-desc">25+ years of excellence</div>
+        </div>
+        <div class="hero-stat-card glass fade-up fade-up-delay-2">
+          <div class="stat-label-sm">Anna Univ. Rank</div>
+          <div class="stat-value stat-accent">#236</div>
+          <div class="stat-desc">B.Tech stream · 2024</div>
+        </div>
+        <div class="hero-stat-card glass fade-up fade-up-delay-2">
+          <div class="stat-label-sm">Programs Offered</div>
+          <div class="stat-value">16</div>
+          <div class="stat-desc">UG &amp; PG degrees</div>
+        </div>
+        <div class="hero-stat-card glass fade-up fade-up-delay-3">
+          <div class="stat-label-sm">Hostel Capacity</div>
+          <div class="stat-value">800+</div>
+          <div class="stat-desc">Boys &amp; girls hostels</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ── TICKER ── -->
+  <div class="ticker-wrap">
+    <div class="ticker-inner" style="max-width:1600px;margin:0 auto;padding:0 32px;">
+      <div class="ticker-label">Latest</div>
+      <div style="overflow:hidden;flex:1;">
+        <div class="ticker-track">
+          <span class="ticker-item">🎓 <a href="https://csice.edu.in/">Admissions Open 2025–26 — Apply via TNEA Counselling</a></span>
+          <span class="ticker-item">🏆 <a href="https://csice.edu.in/">Times of India Best Trendsetters Award 2024</a></span>
+          <span class="ticker-item">💡 <a href="https://csice.edu.in/">CSICE — EDII-TN District Hub for Nilgiris · Startup TN Knowledge Partner</a></span>
+          <span class="ticker-item">🔬 <a href="https://ic3c.in/">IC3C 2025 — International Conference on Computer, Computation &amp; Communication</a></span>
+          <span class="ticker-item">📚 <a href="https://csice.edu.in/">UG-PG Academic Schedule Aug–Nov 2025 Released</a></span>
+          <span class="ticker-item">🎯 <a href="https://csice.edu.in/">Innovation Voucher Program (IVP) — Apply for Startup Funding</a></span>
+          <!-- duplicate for seamless loop -->
+          <span class="ticker-item">🎓 <a href="https://csice.edu.in/">Admissions Open 2025–26 — Apply via TNEA Counselling</a></span>
+          <span class="ticker-item">🏆 <a href="https://csice.edu.in/">Times of India Best Trendsetters Award 2024</a></span>
+          <span class="ticker-item">💡 <a href="https://csice.edu.in/">CSICE — EDII-TN District Hub for Nilgiris · Startup TN Knowledge Partner</a></span>
+          <span class="ticker-item">🔬 <a href="https://ic3c.in/">IC3C 2025 — International Conference on Computer, Computation &amp; Communication</a></span>
+          <span class="ticker-item">📚 <a href="https://csice.edu.in/">UG-PG Academic Schedule Aug–Nov 2025 Released</a></span>
+          <span class="ticker-item">🎯 <a href="https://csice.edu.in/">Innovation Voucher Program (IVP) — Apply for Startup Funding</a></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── STATS STRIP ── -->
+  <div class="stats-strip">
+    <div class="stats-grid">
+      <div class="stat-strip-item">
+        <div class="stat-strip-num">1998</div>
+        <div class="stat-strip-lbl">Year Founded</div>
+      </div>
+      <div class="stat-strip-item">
+        <div class="stat-strip-num">25+</div>
+        <div class="stat-strip-lbl">Years of Excellence</div>
+      </div>
+      <div class="stat-strip-item">
+        <div class="stat-strip-num">16</div>
+        <div class="stat-strip-lbl">Courses Offered</div>
+      </div>
+      <div class="stat-strip-item">
+        <div class="stat-strip-num">800+</div>
+        <div class="stat-strip-lbl">Hostel Capacity</div>
+      </div>
+      <div class="stat-strip-item">
+        <div class="stat-strip-num">15K+</div>
+        <div class="stat-strip-lbl">Library Books</div>
+      </div>
+      <div class="stat-strip-item">
+        <div class="stat-strip-num">25 ac</div>
+        <div class="stat-strip-lbl">Campus Area</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PROGRAMS ── -->
+  <section class="section programs-section" id="programs">
+    <div class="container">
+      <div class="fade-up">
+        <div class="section-eyebrow">Academics</div>
+        <h2 class="section-heading">Departments &amp; Programs</h2>
+        <p class="section-sub">UG and PG programs across engineering disciplines, affiliated to Anna University, Chennai.</p>
+      </div>
+
+      <!-- UG -->
+      <div class="school-block" style="margin-top:52px;">
+        <div class="school-header-row fade-up">
+          <div class="school-icon-wrap">🎓</div>
+          <div class="school-name-text">Undergraduate Programs — B.E. / B.Tech</div>
+        </div>
+        <div class="programs-grid">
+          <div class="program-card fade-up fade-up-delay-1"><div class="prog-emoji">🏗️</div><div class="prog-name">Civil Engineering</div><div class="prog-level">B.E. · Est. 1998</div><a href="https://csice.edu.in/" class="prog-link">Learn more →</a></div>
+          <div class="program-card fade-up fade-up-delay-1"><div class="prog-emoji">⚙️</div><div class="prog-name">Mechanical Engineering</div><div class="prog-level">B.E.</div><a href="https://csice.edu.in/" class="prog-link">Learn more →</a></div>
+          <div class="program-card fade-up fade-up-delay-2"><div class="prog-emoji">💻</div><div class="prog-name">Computer Science &amp; Engineering</div><div class="prog-level">B.E.</div><a href="https://csice.edu.in/" class="prog-link">Learn more →</a></div>
+          <div class="program-card fade-up fade-up-delay-2"><div class="prog-emoji">📡</div><div class="prog-name">Electronics &amp; Communication Engg.</div><div class="prog-level">B.E.</div><a href="https://csice.edu.in/" class="prog-link">Learn more →</a></div>
+          <div class="program-card fade-up fade-up-delay-2"><div class="prog-emoji">⚡</div><div class="prog-name">Electrical &amp; Electronics Engg.</div><div class="prog-level">B.E.</div><a href="https://csice.edu.in/" class="prog-link">Learn more →</a></div>
+          <div class="program-card fade-up fade-up-delay-3"><div class="prog-emoji">🖥️</div><div class="prog-name">Information Technology</div><div class="prog-level">B.Tech</div><a href="https://csice.edu.in/" class="prog-link">Learn more →</a></div>
+          <div class="program-card fade-up fade-up-delay-3"><div class="prog-emoji">🧠</div><div class="prog-name">Artificial Intelligence &amp; Machine Learning</div><div class="prog-level">B.Tech</div><a href="https://csice.edu.in/" class="prog-link">Learn more →</a></div>
+          <div class="program-card fade-up fade-up-delay-3"><div class="prog-emoji">📊</div><div class="prog-name">Artificial Intelligence &amp; Data Science</div><div class="prog-level">B.Tech</div><a href="https://csice.edu.in/" class="prog-link">Learn more →</a></div>
+          <div class="program-card fade-up fade-up-delay-3"><div class="prog-emoji">🔐</div><div class="prog-name">Cyber Security</div><div class="prog-level">B.Tech</div><a href="https://csice.edu.in/" class="prog-link">Learn more →</a></div>
+        </div>
+      </div>
+
+      <!-- PG -->
+      <div class="school-block">
+        <div class="school-header-row fade-up">
+          <div class="school-icon-wrap">📚</div>
+          <div class="school-name-text">Postgraduate Programs — M.E. / M.Tech</div>
+        </div>
+        <div class="programs-grid">
+          <div class="program-card fade-up fade-up-delay-1"><div class="prog-emoji">🏛️</div><div class="prog-name">Structural Engineering</div><div class="prog-level">M.E.</div><a href="https://csice.edu.in/" class="prog-link">Learn more →</a></div>
+          <div class="program-card fade-up fade-up-delay-1"><div class="prog-emoji">⚡</div><div class="prog-name">Power Engineering</div><div class="prog-level">M.E.</div><a href="https://csice.edu.in/" class="prog-link">Learn more →</a></div>
+          <div class="program-card fade-up fade-up-delay-2"><div class="prog-emoji">🔌</div><div class="prog-name">Electrical Engineering</div><div class="prog-level">M.E.</div><a href="https://csice.edu.in/" class="prog-link">Learn more →</a></div>
+          <div class="program-card fade-up fade-up-delay-2"><div class="prog-emoji">💾</div><div class="prog-name">Computer Science Engineering</div><div class="prog-level">M.E.</div><a href="https://csice.edu.in/" class="prog-link">Learn more →</a></div>
+          <div class="program-card fade-up fade-up-delay-3"><div class="prog-emoji">📶</div><div class="prog-name">Electronics &amp; Communication Engg.</div><div class="prog-level">M.E.</div><a href="https://csice.edu.in/" class="prog-link">Learn more →</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── WHY CSICE ── -->
+  <section class="section why-section">
+    <div class="container">
+      <div class="fade-up">
+        <div class="section-eyebrow">Why Choose Us</div>
+        <h2 class="section-heading">The CSICE Difference</h2>
+        <p class="section-sub">What makes CSI College of Engineering stand out in the Nilgiris and beyond.</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-card fade-up fade-up-delay-1">
+          <div class="why-icon-wrap">🏔️</div>
+          <div class="why-title">Scenic Hill Campus</div>
+          <div class="why-desc">A 25-acre campus nestled in beautiful Ketti Valley near Ooty — a serene, distraction-free learning environment unlike any other in Tamil Nadu.</div>
+        </div>
+        <div class="why-card fade-up fade-up-delay-1">
+          <div class="why-icon-wrap">🏛️</div>
+          <div class="why-title">Anna University Affiliated</div>
+          <div class="why-desc">Degrees affiliated to Anna University, Chennai — one of Tamil Nadu's most recognised technical universities, ensuring nationally valued credentials.</div>
+        </div>
+        <div class="why-card fade-up fade-up-delay-2">
+          <div class="why-icon-wrap">🚀</div>
+          <div class="why-title">Startup TN Knowledge Partner</div>
+          <div class="why-desc">EDII-TN District Hub for Nilgiris and Innovation Voucher Program partner — actively supporting the next generation of student entrepreneurs.</div>
+        </div>
+        <div class="why-card fade-up fade-up-delay-2">
+          <div class="why-icon-wrap">🌍</div>
+          <div class="why-title">Industry Placements</div>
+          <div class="why-desc">Graduates placed at HP, Cognizant, Mphasis, CTS, Multivista Global and more — with a robust placement cell bridging campus to career.</div>
+        </div>
+        <div class="why-card fade-up fade-up-delay-3">
+          <div class="why-icon-wrap">⛪</div>
+          <div class="why-title">Values-Based Education</div>
+          <div class="why-desc">Founded by the Church of South India — committed to holistic development, ethical leadership, and community service alongside technical excellence.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ACCREDITATIONS ── -->
+  <section class="section accred-section" id="accreditations">
+    <div class="container">
+      <div class="fade-up">
+        <div class="section-eyebrow">Accreditations &amp; Approvals</div>
+        <h2 class="section-heading">Recognised &amp; Approved By</h2>
+        <p class="section-sub">CSICE holds approvals and recognitions from key national bodies, ensuring rigorous academic quality and standards.</p>
+      </div>
+      <div class="accred-grid">
+        <div class="accred-card fade-up fade-up-delay-1">
+          <div class="accred-icon">📋</div>
+          <div><div class="accred-name">AICTE — All India Council for Technical Education</div><div class="accred-desc">Approved by AICTE, New Delhi for meeting national standards in technical and professional education across all programs.</div></div>
+        </div>
+        <div class="accred-card fade-up fade-up-delay-1">
+          <div class="accred-icon">🏛️</div>
+          <div><div class="accred-name">Anna University, Chennai</div><div class="accred-desc">All B.E., B.Tech, M.E. and M.Tech programs affiliated to Anna University — Tamil Nadu's premier technical university.</div></div>
+        </div>
+        <div class="accred-card fade-up fade-up-delay-2">
+          <div class="accred-icon">🇮🇳</div>
+          <div><div class="accred-name">Government of Tamil Nadu</div><div class="accred-desc">Approved by the Government of Tamil Nadu, ensuring compliance with state-level educational norms and quality benchmarks.</div></div>
+        </div>
+        <div class="accred-card fade-up fade-up-delay-2">
+          <div class="accred-icon">🚀</div>
+          <div><div class="accred-name">Startup TN — EDII-TN District Hub</div><div class="accred-desc">Recognised as the EDII-TN District Hub for the Nilgiris district and IVP knowledge partner under Startup TN.</div></div>
+        </div>
+        <div class="accred-card fade-up fade-up-delay-3">
+          <div class="accred-icon">⛪</div>
+          <div><div class="accred-name">Church of South India — Founding Body</div><div class="accred-desc">Founded and managed by CSI Coimbatore Diocesan Council, providing a strong ethical and value-based institutional framework.</div></div>
+        </div>
+        <div class="accred-card fade-up fade-up-delay-3">
+          <div class="accred-icon">🏆</div>
+          <div><div class="accred-name">Times of India — Best Trendsetters 2024</div><div class="accred-desc">Recognised by Times of India with the Best Trendsetters Award 2024 for excellence and innovation in engineering education.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── INFRASTRUCTURE ── -->
+  <section class="section infra-section" id="infrastructure">
+    <div class="container">
+      <div class="fade-up">
+        <div class="section-eyebrow">Campus &amp; Infrastructure</div>
+        <h2 class="section-heading">World-Class Facilities</h2>
+        <p class="section-sub">A fully equipped 25-acre campus in Ketti Valley, designed for academic excellence and student wellbeing.</p>
+      </div>
+      <div class="infra-grid">
+        <div class="infra-card fade-up fade-up-delay-1"><div class="infra-icon-badge">📚</div><div><div class="infra-org">Digital Library</div><div class="infra-desc">15,276+ books, 250 bound periodicals, OPAC online access, journals and internet facility.</div></div></div>
+        <div class="infra-card fade-up fade-up-delay-1"><div class="infra-icon-badge">💻</div><div><div class="infra-org">Computer Labs</div><div class="infra-desc">State-of-the-art labs with high-speed servers, Wi-Fi campus coverage, and antivirus infrastructure.</div></div></div>
+        <div class="infra-card fade-up fade-up-delay-2"><div class="infra-icon-badge">🏠</div><div><div class="infra-org">Hostels</div><div class="infra-desc">Separate boys and girls hostels accommodating 800+ students with home-like mess facilities.</div></div></div>
+        <div class="infra-card fade-up fade-up-delay-2"><div class="infra-icon-badge">🏋️</div><div><div class="infra-org">Sports &amp; Gymnasium</div><div class="infra-desc">Volleyball, cricket, football, kabaddi, throwball, athletic tracks and a well-equipped gymnasium.</div></div></div>
+        <div class="infra-card fade-up fade-up-delay-3"><div class="infra-icon-badge">🔬</div><div><div class="infra-org">Advanced Laboratories</div><div class="infra-desc">Discipline-specific labs for hands-on engineering practice across all departments.</div></div></div>
+        <div class="infra-card fade-up fade-up-delay-3"><div class="infra-icon-badge">🏥</div><div><div class="infra-org">Medical &amp; Cafeteria</div><div class="infra-desc">On-campus dispensary, emergency vans, and a cafeteria with diverse food options.</div></div></div>
+        <div class="infra-card fade-up fade-up-delay-3"><div class="infra-icon-badge">🎭</div><div><div class="infra-org">Auditorium</div><div class="infra-desc">Spacious auditorium for conferences, seminars, cultural events and graduation ceremonies.</div></div></div>
+        <div class="infra-card fade-up fade-up-delay-3"><div class="infra-icon-badge">🌿</div><div><div class="infra-org">Green Hill Campus</div><div class="infra-desc">Eco-friendly 25-acre campus in the Nilgiris — one of the most scenic college campuses in South India.</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── NOTABLE VISITORS ── -->
+  <section class="section visitors-section" id="alumni">
+    <div class="container">
+      <div class="fade-up">
+        <div class="section-eyebrow">Notable Highlights</div>
+        <h2 class="section-heading">Distinguished Visitors &amp; Achievements</h2>
+        <p class="section-sub">CSICE has hosted some of India's most celebrated scientists, leaders and achievers over its 25+ year history.</p>
+      </div>
+      <div class="visitors-grid">
+        <div class="visitor-card fade-up fade-up-delay-1">
+          <div class="visitor-avatar">APJ</div>
+          <div class="visitor-name">Dr. A.P.J. Abdul Kalam</div>
+          <div class="visitor-role">Former President of India</div>
+          <div class="visitor-note">Addressed and interacted with CSICE students — February 21, 2012</div>
+        </div>
+        <div class="visitor-card fade-up fade-up-delay-1">
+          <div class="visitor-avatar">RS</div>
+          <div class="visitor-name">Wing Cdr. Rakesh Sharma</div>
+          <div class="visitor-role">India's First Astronaut</div>
+          <div class="visitor-note">Participated in CSE Dept. students' association inauguration — Auritz</div>
+        </div>
+        <div class="visitor-card fade-up fade-up-delay-2">
+          <div class="visitor-avatar">GM</div>
+          <div class="visitor-name">G. Madhavan Nair</div>
+          <div class="visitor-role">Former Chairman, ISRO</div>
+          <div class="visitor-note">Chief guest at CSICE Space Science Exhibition, Ketti</div>
+        </div>
+        <div class="visitor-card fade-up fade-up-delay-2">
+          <div class="visitor-avatar">TT</div>
+          <div class="visitor-name">Dr. Tessy Thomas</div>
+          <div class="visitor-role">Director — Agni Missile Programme</div>
+          <div class="visitor-note">Chief Guest at Mechanical Engineering students' symposium</div>
+        </div>
+        <div class="visitor-card fade-up fade-up-delay-3">
+          <div class="visitor-avatar">MRS</div>
+          <div class="visitor-name">M.R. Srinivasan</div>
+          <div class="visitor-role">Former Chairman, Atomic Energy Commission</div>
+          <div class="visitor-note">Chief Guest at the 10th Graduation Day ceremony</div>
+        </div>
+        <div class="visitor-card fade-up fade-up-delay-3">
+          <div class="visitor-avatar">RP</div>
+          <div class="visitor-name">Prof. R. Pradab</div>
+          <div class="visitor-role">HOD — Mechanical Engineering</div>
+          <div class="visitor-note">Recognised as NPTEL Discipline Star for academic excellence</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA BAND ── -->
+  <div style="padding: 0 0 80px;">
+    <div class="cta-band fade-up">
+      <div class="cta-band-left">
+        <h2>Your engineering<br>journey starts here.</h2>
+        <p>Applications are now open for the 2025–26 academic year. Secure your seat at one of Tamil Nadu's most distinctive engineering colleges — nestled in the scenic Nilgiris.</p>
+      </div>
+      <div class="cta-band-btns">
+        <a href="https://csice.edu.in/courses-offered/" class="btn-hero btn-primary">Apply Now ↗</a>
+        <a href="#contact" class="btn-hero btn-ghost">Get in Touch</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── FOOTER ── -->
+  <footer id="contact">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-brand-name">CSI College of Engineering</div>
+        <p>A self-financing institution founded by the Church of South India, Coimbatore Diocesan Council. Committed to equipping students with technical knowledge, skill, and ethical values to serve society.</p>
+        <div class="footer-contact">📍 Ketti (Near Ooty), The Nilgiris – 643 215, Tamil Nadu, India</div>
+        <div class="footer-contact">📞 <strong>+91 93450 99377</strong></div>
+        <div class="footer-contact">📞 <strong>Office:</strong> 0423 – 2517474, 2517581–83</div>
+        <div class="footer-contact">📧 <strong>Email:</strong> csice@csice.edu.in</div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Academics</div>
+        <ul>
+          <li><a href="https://csice.edu.in/courses-offered/">Courses Offered</a></li>
+          <li><a href="https://csice.edu.in/">Civil Engineering</a></li>
+          <li><a href="https://csice.edu.in/">Mechanical Engineering</a></li>
+          <li><a href="https://csice.edu.in/">Computer Science</a></li>
+          <li><a href="https://csice.edu.in/">Electronics &amp; Communication</a></li>
+          <li><a href="https://csice.edu.in/">Information Technology</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Campus Life</div>
+        <ul>
+          <li><a href="https://csice.edu.in/">Library</a></li>
+          <li><a href="https://csice.edu.in/">Sports Facilities</a></li>
+          <li><a href="https://csice.edu.in/">Hostel</a></li>
+          <li><a href="https://csice.edu.in/">NSS &amp; NCC</a></li>
+          <li><a href="https://csice.edu.in/">Youth Red Cross</a></li>
+          <li><a href="https://csice.edu.in/">Student Associations</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Quick Links</div>
+        <ul>
+          <li><a href="https://csice.edu.in/">Admissions 2025–26</a></li>
+          <li><a href="https://csice.edu.in/">TNEA Counselling</a></li>
+          <li><a href="https://csice.edu.in/">Placements</a></li>
+          <li><a href="https://ic3c.in/">IC3C 2025 Conference</a></li>
+          <li><a href="https://csice.edu.in/">Innovation Voucher Program</a></li>
+          <li><a href="https://csice.edu.in/">AICTE Disclosures</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 CSI College of Engineering, Ketti, The Nilgiris. All Rights Reserved.</span>
+      <div class="footer-bottom-links">
+        <a href="https://csice.edu.in/">Privacy Policy</a>
+        <a href="https://csice.edu.in/">Terms of Use</a>
+        <a href="#contact">Contact Us</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll-triggered fade-up
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // Trigger hero elements immediately
+    setTimeout(() => {
+      document.querySelectorAll('.hero .fade-up').forEach(el => el.classList.add('visible'));
+    }, 100);
+
+    // Sticky nav background
+    window.addEventListener('scroll', () => {
+      const nav = document.querySelector('nav');
+      if (window.scrollY > 80) {
+        nav.style.top = '0';
+        nav.style.padding = '8px 32px';
+      } else {
+        nav.style.top = '16px';
+        nav.style.padding = '0 32px';
+      }
+    });
+  </script>
+</body>
+</html>

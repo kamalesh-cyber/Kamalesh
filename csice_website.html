@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CSI College of Engineering — Ketti, The Nilgiris</title>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ========================================
+       CSS VARIABLES — Edit colors/fonts here
+    ======================================== */
+    :root {
+      --primary:       #1b4332;   /* Deep forest green — CSI brand color */
+      --accent:        #d62828;   /* CSI red — highlight/CTA color */
+      --accent-light:  #ffd6d6;   /* Light red for backgrounds */
+      --bg:            #f4f7f4;   /* Soft green-tinted page background */
+      --white:         #ffffff;
+      --text-dark:     #1a2e1a;
+      --text-mid:      #3a5a3a;
+      --text-light:    #7a9a7a;
+      --border:        #d6e6d6;
+      --card-bg:       #ffffff;
+      --shadow:        0 4px 24px rgba(27,67,50,0.10);
+      --radius:        12px;
+      --font-display:  'Merriweather', Georgia, serif;
+      --font-body:     'Inter', system-ui, sans-serif;
+    }
+
+    /* ========================================
+       RESET & BASE
+    ======================================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    /* ========================================
+       UTILITY
+    ======================================== */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+    .section-subtitle {
+      color: var(--text-mid);
+      font-size: 1rem;
+      margin-bottom: 40px;
+    }
+    .tag {
+      display: inline-block;
+      background: var(--accent-light);
+      color: var(--primary);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 100px;
+      margin-bottom: 12px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 12px 28px;
+      border-radius: 100px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: var(--white);
+    }
+    .btn-primary:hover { background: #b07820; transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+    .btn-outline:hover { background: var(--primary); color: var(--white); }
+
+    /* ========================================
+       TOP BAR
+    ======================================== */
+    .topbar {
+      background: var(--primary);
+      color: rgba(255,255,255,0.8);
+      font-size: 0.8rem;
+      padding: 8px 0;
+    }
+    .topbar .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .topbar a { color: rgba(255,255,255,0.75); transition: color 0.2s; }
+    .topbar a:hover { color: var(--accent-light); }
+    .topbar-links { display: flex; gap: 20px; }
+
+    /* ========================================
+       HEADER / NAV
+    ======================================== */
+    header {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 0;
+    }
+    .logo-block { display: flex; align-items: center; gap: 14px; }
+    .logo-mark {
+      width: 52px; height: 52px;
+      background: var(--primary);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--accent-light);
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .logo-text .uni-name {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1.2;
+    }
+    .logo-text .uni-sub {
+      font-size: 0.72rem;
+      color: var(--text-light);
+      letter-spacing: 0.04em;
+    }
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 4px;
+    }
+    .nav-links li a {
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text-mid);
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .nav-links li a:hover,
+    .nav-links li a.active {
+      background: var(--bg);
+      color: var(--primary);
+    }
+    .nav-cta { display: flex; gap: 10px; align-items: center; }
+
+    /* ========================================
+       HERO
+    ======================================== */
+    .hero {
+      background: linear-gradient(135deg, var(--primary) 0%, #081c0e 100%);
+      color: var(--white);
+      padding: 80px 0 100px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(214,40,40,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .hero-tag {
+      display: inline-block;
+      background: rgba(214,40,40,0.2);
+      border: 1px solid rgba(214,40,40,0.4);
+      color: #ffb3b3;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 100px;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+    .hero h1 span { color: var(--accent-light); }
+    .hero p {
+      color: rgba(255,255,255,0.75);
+      font-size: 1.05rem;
+      margin-bottom: 36px;
+      max-width: 440px;
+    }
+    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-hero-primary {
+      background: var(--accent);
+      color: var(--white);
+      padding: 14px 32px;
+      border-radius: 100px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+    }
+    .btn-hero-primary:hover { background: #b07820; transform: translateY(-2px); }
+    .btn-hero-outline {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: var(--white);
+      padding: 14px 32px;
+      border-radius: 100px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+    }
+    .btn-hero-outline:hover { background: rgba(255,255,255,0.15); }
+    .hero-badges {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .badge-card {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius);
+      padding: 20px;
+      backdrop-filter: blur(8px);
+    }
+    .badge-card .badge-label {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.55);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+    .badge-card .badge-value {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent-light);
+    }
+    .badge-card .badge-desc {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.65);
+      margin-top: 2px;
+    }
+
+    /* ========================================
+       STATS STRIP
+    ======================================== */
+    .stats-strip {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 32px 0;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 0;
+    }
+    .stat-item {
+      text-align: center;
+      padding: 16px 12px;
+      border-right: 1px solid var(--border);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      margin-top: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* ========================================
+       ANNOUNCEMENTS BANNER
+    ======================================== */
+    .announcements {
+      background: #eef8ee;
+      border-top: 3px solid var(--accent);
+      padding: 14px 0;
+    }
+    .ann-inner {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      overflow: hidden;
+    }
+    .ann-tag {
+      background: var(--accent);
+      color: var(--white);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 4px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .ann-scroll {
+      display: flex;
+      gap: 40px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .ann-scroll::-webkit-scrollbar { display: none; }
+    .ann-item {
+      white-space: nowrap;
+      font-size: 0.88rem;
+      color: var(--text-dark);
+    }
+    .ann-item a { color: var(--primary); font-weight: 600; }
+    .ann-item a:hover { color: var(--accent); }
+
+    /* ========================================
+       SCHOOLS / PROGRAMS
+    ======================================== */
+    .programs-section { padding: 80px 0; }
+    .school-block { margin-bottom: 56px; }
+    .school-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid var(--border);
+    }
+    .school-icon {
+      width: 44px; height: 44px;
+      background: var(--primary);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+    }
+    .school-name {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      color: var(--primary);
+    }
+    .programs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .program-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      transition: all 0.25s;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .program-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: var(--accent);
+      transform: scaleY(0);
+      transform-origin: bottom;
+      transition: transform 0.25s;
+    }
+    .program-card:hover {
+      border-color: var(--accent);
+      box-shadow: var(--shadow);
+      transform: translateY(-3px);
+    }
+    .program-card:hover::before { transform: scaleY(1); }
+    .prog-emoji { font-size: 1.6rem; margin-bottom: 10px; }
+    .prog-name {
+      font-weight: 600;
+      font-size: 0.92rem;
+      color: var(--primary);
+      line-height: 1.4;
+    }
+    .prog-level {
+      font-size: 0.75rem;
+      color: var(--text-light);
+      margin-top: 6px;
+    }
+    .prog-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.78rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-top: 12px;
+    }
+    .prog-link:hover { text-decoration: underline; }
+
+    /* ========================================
+       ACCREDITATIONS
+    ======================================== */
+    .accred-section {
+      background: var(--white);
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+    }
+    .accred-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+    }
+    .accred-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+    .accred-name {
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+    .accred-desc {
+      font-size: 0.82rem;
+      color: var(--text-mid);
+      line-height: 1.5;
+    }
+
+    /* ========================================
+       NOTABLE ALUMNI
+    ======================================== */
+    .alumni-section { padding: 80px 0; }
+    .alumni-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .alumni-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      transition: box-shadow 0.2s;
+    }
+    .alumni-card:hover { box-shadow: var(--shadow); }
+    .alumni-avatar {
+      width: 52px; height: 52px;
+      background: var(--primary);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      color: var(--accent-light);
+      margin-bottom: 14px;
+      font-weight: 700;
+    }
+    .alumni-name {
+      font-weight: 700;
+      font-size: 0.98rem;
+      color: var(--primary);
+    }
+    .alumni-role {
+      font-size: 0.82rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-top: 3px;
+    }
+    .alumni-dept {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      margin-top: 2px;
+    }
+
+    /* ========================================
+       WHY KARUNYA SECTION
+    ======================================== */
+    .why-section {
+      background: linear-gradient(135deg, var(--primary) 0%, #081c0e 100%);
+      color: var(--white);
+      padding: 80px 0;
+    }
+    .why-section .section-title { color: var(--white); }
+    .why-section .section-subtitle { color: rgba(255,255,255,0.65); }
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .why-card {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius);
+      padding: 24px;
+      text-align: center;
+    }
+    .why-icon { font-size: 2rem; margin-bottom: 12px; }
+    .why-title { font-weight: 600; font-size: 0.92rem; color: var(--accent-light); margin-bottom: 6px; }
+    .why-desc { font-size: 0.82rem; color: rgba(255,255,255,0.65); }
+
+    /* ========================================
+       RANKINGS SECTION
+    ======================================== */
+    .rankings-section {
+      background: var(--white);
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+    }
+    .rankings-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+    }
+    .ranking-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .rank-badge {
+      background: var(--primary);
+      color: var(--accent-light);
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.1rem;
+      border-radius: 8px;
+      padding: 8px 12px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .rank-body .rank-org { font-weight: 700; font-size: 0.88rem; color: var(--primary); }
+    .rank-body .rank-desc { font-size: 0.78rem; color: var(--text-mid); margin-top: 3px; }
+
+    /* ========================================
+       CONTACT / FOOTER
+    ======================================== */
+    footer {
+      background: #071209;
+      color: rgba(255,255,255,0.8);
+      padding: 60px 0 0;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .footer-brand .uni-name {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .footer-brand p {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .contact-item { font-size: 0.82rem; color: rgba(255,255,255,0.6); margin-bottom: 6px; }
+    .contact-item strong { color: rgba(255,255,255,0.85); }
+    .footer-col h4 {
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent-light);
+      margin-bottom: 16px;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 8px; }
+    .footer-col ul li a {
+      font-size: 0.84rem;
+      color: rgba(255,255,255,0.55);
+      transition: color 0.2s;
+    }
+    .footer-col ul li a:hover { color: var(--accent-light); }
+    .footer-bottom {
+      padding: 20px 0;
+      text-align: center;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.35);
+    }
+
+    /* ========================================
+       RESPONSIVE
+    ======================================== */
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+      .hero-badges { display: none; }
+      .stats-grid { grid-template-columns: repeat(3, 1fr); }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; }
+    }
+    @media (max-width: 600px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===================== TOP BAR ===================== -->
+  <div class="topbar">
+    <div class="container">
+      <span>📞 +91 93450 99377 &nbsp;|&nbsp; 0423 – 2517474, 2517581–83</span>
+      <div class="topbar-links">
+        <a href="https://csice.edu.in/">Students</a>
+        <a href="https://csice.edu.in/">Faculty</a>
+        <a href="https://csice.edu.in/">Alumni</a>
+        <a href="https://csice.edu.in/courses-offered/">Courses</a>
+        <a href="mailto:principal@csice.edu.in">principal@csice.edu.in</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== HEADER ===================== -->
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo-block">
+          <div class="logo-mark">CSI</div>
+          <div class="logo-text">
+            <div class="uni-name">CSI College of Engineering</div>
+            <div class="uni-sub">Ketti, The Nilgiris · Affiliated to Anna University · AICTE Approved</div>
+          </div>
+        </div>
+        <ul class="nav-links">
+          <li><a href="#about" class="active">About</a></li>
+          <li><a href="#programs">Programs</a></li>
+          <li><a href="#accreditations">Accreditations</a></li>
+          <li><a href="#infrastructure">Infrastructure</a></li>
+          <li><a href="#alumni">Alumni</a></li>
+          <li><a href="https://csice.edu.in/">Research</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="nav-cta">
+          <a href="https://csice.edu.in/" class="btn btn-primary">Apply Now</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===================== ANNOUNCEMENTS ===================== -->
+  <div class="announcements">
+    <div class="container">
+      <div class="ann-inner">
+        <span class="ann-tag">📢 Latest</span>
+        <div class="ann-scroll">
+          <span class="ann-item">🎓 <a href="https://csice.edu.in/">Admissions Open 2025–26 — Apply via TNEA</a></span>
+          <span class="ann-item">🏆 <a href="https://csice.edu.in/">Times of India Best Trendsetters 2024 Award</a></span>
+          <span class="ann-item">💡 <a href="https://csice.edu.in/">CSICE — EDII-TN District Hub for Nilgiris, Startup TN Knowledge Partner</a></span>
+          <span class="ann-item">🔬 <a href="https://ic3c.in/">IC3C 2025 — International Conference on Computer, Computation & Communication</a></span>
+          <span class="ann-item">📚 <a href="https://csice.edu.in/">UG-PG Academic Schedule Aug–Nov 2025 Released</a></span>
+          <span class="ann-item">🎯 <a href="https://csice.edu.in/">Innovation Voucher Program (IVP) — Apply for Startup Funding</a></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero" id="about">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <span class="hero-tag">🌿 Best Engineering College in The Nilgiris</span>
+          <h1>Engineering Excellence in the <span>Heart of the Nilgiris</span></h1>
+          <p>
+            CSI College of Engineering (CSICE) — a self-financing institution founded by the
+            Church of South India, Coimbatore Diocesan Council. Located in the scenic Ketti Valley
+            near Ooty, Tamil Nadu. AICTE approved and affiliated to Anna University, Chennai since 1998.
+          </p>
+          <div class="hero-btns">
+            <a href="https://csice.edu.in/courses-offered/" class="btn-hero-primary">Explore Programs</a>
+            <a href="https://csice.edu.in/" class="btn-hero-outline">Visit Campus</a>
+          </div>
+        </div>
+        <div class="hero-badges">
+          <div class="badge-card">
+            <div class="badge-label">Affiliation</div>
+            <div class="badge-value">Anna Univ.</div>
+            <div class="badge-desc">Chennai — Affiliated</div>
+          </div>
+          <div class="badge-card">
+            <div class="badge-label">Approval</div>
+            <div class="badge-value">AICTE</div>
+            <div class="badge-desc">Govt. of India approved</div>
+          </div>
+          <div class="badge-card">
+            <div class="badge-label">Established</div>
+            <div class="badge-value">1998</div>
+            <div class="badge-desc">25+ Years of Excellence</div>
+          </div>
+          <div class="badge-card">
+            <div class="badge-label">Anna Univ. Rank</div>
+            <div class="badge-value">#236</div>
+            <div class="badge-desc">B.Tech stream — 2024</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== STATS STRIP ===================== -->
+  <div class="stats-strip">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-number">1998</div>
+          <div class="stat-label">Year Established</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">25+</div>
+          <div class="stat-label">Acres Campus</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">16</div>
+          <div class="stat-label">Courses Offered</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">800+</div>
+          <div class="stat-label">Hostel Capacity</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">15,276+</div>
+          <div class="stat-label">Library Books</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">₹50K–₹2.68L</div>
+          <div class="stat-label">Annual Fee Range</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== SCHOOLS & PROGRAMS ===================== -->
+  <section class="programs-section" id="programs">
+    <div class="container">
+      <span class="tag">Academics</span>
+      <h2 class="section-title">Departments & Programs</h2>
+      <p class="section-subtitle">UG (B.E./B.Tech) and PG (M.E./M.Tech) programs across engineering disciplines, affiliated to Anna University, Chennai.</p>
+
+      <!-- UG PROGRAMS -->
+      <div class="school-block">
+        <div class="school-header">
+          <div class="school-icon">🎓</div>
+          <div>
+            <div class="school-name">Undergraduate Programs — B.E. / B.Tech</div>
+          </div>
+        </div>
+        <div class="programs-grid">
+          <div class="program-card">
+            <div class="prog-emoji">🏗️</div>
+            <div class="prog-name">Civil Engineering</div>
+            <div class="prog-level">B.E. — Est. 1998</div>
+            <a href="https://csice.edu.in/" class="prog-link">Learn more →</a>
+          </div>
+          <div class="program-card">
+            <div class="prog-emoji">⚙️</div>
+            <div class="prog-name">Mechanical Engineering</div>
+            <div class="prog-level">B.E.</div>
+            <a href="https://csice.edu.in/" class="prog-link">Learn more →</a>
+          </div>
+          <div class="program-card">
+            <div class="prog-emoji">💻</div>
+            <div class="prog-name">Computer Science and Engineering</div>
+            <div class="prog-level">B.E.</div>
+            <a href="https://csice.edu.in/" class="prog-link">Learn more →</a>
+          </div>
+          <div class="program-card">
+            <div class="prog-emoji">📡</div>
+            <div class="prog-name">Electronics and Communication Engineering</div>
+            <div class="prog-level">B.E.</div>
+            <a href="https://csice.edu.in/" class="prog-link">Learn more →</a>
+          </div>
+          <div class="program-card">
+            <div class="prog-emoji">⚡</div>
+            <div class="prog-name">Electrical and Electronics Engineering</div>
+            <div class="prog-level">B.E.</div>
+            <a href="https://csice.edu.in/" class="prog-link">Learn more →</a>
+          </div>
+          <div class="program-card">
+            <div class="prog-emoji">🖥️</div>
+            <div class="prog-name">Information Technology</div>
+            <div class="prog-level">B.Tech</div>
+            <a href="https://csice.edu.in/" class="prog-link">Learn more →</a>
+          </div>
+          <div class="program-card">
+            <div class="prog-emoji">🧠</div>
+            <div class="prog-name">Artificial Intelligence and Machine Learning</div>
+            <div class="prog-level">B.Tech</div>
+            <a href="https://csice.edu.in/" class="prog-link">Learn more →</a>
+          </div>
+          <div class="program-card">
+            <div class="prog-emoji">📊</div>
+            <div class="prog-name">Artificial Intelligence and Data Science</div>
+            <div class="prog-level">B.Tech</div>
+            <a href="https://csice.edu.in/" class="prog-link">Learn more →</a>
+          </div>
+          <div class="program-card">
+            <div class="prog-emoji">🔐</div>
+            <div class="prog-name">Cyber Security</div>
+            <div class="prog-level">B.Tech</div>
+            <a href="https://csice.edu.in/" class="prog-link">Learn more →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PG PROGRAMS -->
+      <div class="school-block">
+        <div class="school-header">
+          <div class="school-icon">📚</div>
+          <div>
+            <div class="school-name">Postgraduate Programs — M.E. / M.Tech</div>
+          </div>
+        </div>
+        <div class="programs-grid">
+          <div class="program-card">
+            <div class="prog-emoji">🏛️</div>
+            <div class="prog-name">Structural Engineering</div>
+            <div class="prog-level">M.E.</div>
+            <a href="https://csice.edu.in/" class="prog-link">Learn more →</a>
+          </div>
+          <div class="program-card">
+            <div class="prog-emoji">⚡</div>
+            <div class="prog-name">Power Engineering</div>
+            <div class="prog-level">M.E.</div>
+            <a href="https://csice.edu.in/" class="prog-link">Learn more →</a>
+          </div>
+          <div class="program-card">
+            <div class="prog-emoji">🔌</div>
+            <div class="prog-name">Electrical Engineering</div>
+            <div class="prog-level">M.E.</div>
+            <a href="https://csice.edu.in/" class="prog-link">Learn more →</a>
+          </div>
+          <div class="program-card">
+            <div class="prog-emoji">💾</div>
+            <div class="prog-name">Computer Science Engineering</div>
+            <div class="prog-level">M.E.</div>
+            <a href="https://csice.edu.in/" class="prog-link">Learn more →</a>
+          </div>
+          <div class="program-card">
+            <div class="prog-emoji">📶</div>
+            <div class="prog-name">Electronics and Communication Engineering</div>
+            <div class="prog-level">M.E.</div>
+            <a href="https://csice.edu.in/" class="prog-link">Learn more →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== WHY CSICE ===================== -->
+  <section class="why-section">
+    <div class="container">
+      <span class="tag" style="background:rgba(214,40,40,0.2);color:#ffb3b3;">Why Choose Us</span>
+      <h2 class="section-title" style="color:var(--white);margin-top:8px;">Why Choose CSICE</h2>
+      <p class="section-subtitle">What makes CSI College of Engineering stand out in the Nilgiris and beyond.</p>
+      <div class="why-grid">
+        <div class="why-card">
+          <div class="why-icon">🏔️</div>
+          <div class="why-title">Scenic Hill Campus</div>
+          <div class="why-desc">A 25-acre campus nestled in the beautiful Ketti Valley near Ooty — a serene learning environment unlike any other.</div>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">🏛️</div>
+          <div class="why-title">Anna University Affiliated</div>
+          <div class="why-desc">Degrees affiliated to Anna University, Chennai — one of Tamil Nadu's most recognised technical universities.</div>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">🚀</div>
+          <div class="why-title">Startup TN Knowledge Partner</div>
+          <div class="why-desc">EDII-TN District Hub for Nilgiris and recognised Innovation Voucher Program partner — supporting student entrepreneurs.</div>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">🌍</div>
+          <div class="why-title">Industry Placements</div>
+          <div class="why-desc">Graduates placed in reputed companies including HP, Cognizant, Mphasis, CTS, Multivista Global and more.</div>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">⛪</div>
+          <div class="why-title">Values-Based Education</div>
+          <div class="why-desc">Founded by the Church of South India — committed to holistic development, ethics, and community service alongside academic excellence.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ACCREDITATIONS ===================== -->
+  <section class="accred-section" id="accreditations">
+    <div class="container">
+      <span class="tag">Accreditations & Approvals</span>
+      <h2 class="section-title">Recognised & Approved By</h2>
+      <p class="section-subtitle">CSICE holds approvals and recognitions from key national bodies ensuring academic quality and standards.</p>
+      <div class="accred-grid">
+        <div class="accred-card">
+          <div class="accred-name">📋 AICTE — All India Council for Technical Education</div>
+          <div class="accred-desc">Approved by AICTE, New Delhi for meeting national standards in technical and professional education across all programs.</div>
+        </div>
+        <div class="accred-card">
+          <div class="accred-name">🏛️ Anna University, Chennai</div>
+          <div class="accred-desc">All B.E., B.Tech, M.E. and M.Tech programs are affiliated to Anna University, Chennai — Tamil Nadu's premier technical university.</div>
+        </div>
+        <div class="accred-card">
+          <div class="accred-name">🇮🇳 Government of Tamil Nadu</div>
+          <div class="accred-desc">Approved by the Government of Tamil Nadu, ensuring compliance with state-level educational norms and quality benchmarks.</div>
+        </div>
+        <div class="accred-card">
+          <div class="accred-name">🚀 Startup TN — EDII-TN District Hub</div>
+          <div class="accred-desc">Recognised as the EDII-TN District Hub for the Nilgiris district and Innovation Voucher Program (IVP) knowledge partner under Startup TN.</div>
+        </div>
+        <div class="accred-card">
+          <div class="accred-name">⛪ Church of South India — Founding Body</div>
+          <div class="accred-desc">Founded and managed by the CSI Coimbatore Diocesan Council, providing a strong ethical and value-based institutional framework.</div>
+        </div>
+        <div class="accred-card">
+          <div class="accred-name">🏆 Times of India — Best Trendsetters 2024</div>
+          <div class="accred-desc">Recognised by Times of India with the Best Trendsetters Award 2024 for excellence and innovation in engineering education.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== INFRASTRUCTURE ===================== -->
+  <section class="rankings-section" id="infrastructure">
+    <div class="container">
+      <span class="tag">Campus & Infrastructure</span>
+      <h2 class="section-title">World-Class Facilities</h2>
+      <p class="section-subtitle">A fully equipped 25-acre campus in Ketti Valley, designed for both academic excellence and student wellbeing.</p>
+      <div class="rankings-grid">
+        <div class="ranking-card">
+          <div class="rank-badge">📚</div>
+          <div class="rank-body">
+            <div class="rank-org">Digital Library</div>
+            <div class="rank-desc">15,276+ books, 250 bound periodicals, OPAC online access, journals and internet facility</div>
+          </div>
+        </div>
+        <div class="ranking-card">
+          <div class="rank-badge">💻</div>
+          <div class="rank-body">
+            <div class="rank-org">Computer Labs</div>
+            <div class="rank-desc">State-of-the-art labs with high-speed servers, Wi-Fi campus coverage, and antivirus infrastructure</div>
+          </div>
+        </div>
+        <div class="ranking-card">
+          <div class="rank-badge">🏠</div>
+          <div class="rank-body">
+            <div class="rank-org">Hostels</div>
+            <div class="rank-desc">Separate boys and girls hostels accommodating 800+ students with home-like mess facilities</div>
+          </div>
+        </div>
+        <div class="ranking-card">
+          <div class="rank-badge">🏋️</div>
+          <div class="rank-body">
+            <div class="rank-org">Sports & Gym</div>
+            <div class="rank-desc">Volleyball, cricket, football, kabaddi, throwball, athletic tracks and a well-equipped gymnasium</div>
+          </div>
+        </div>
+        <div class="ranking-card">
+          <div class="rank-badge">🔬</div>
+          <div class="rank-body">
+            <div class="rank-org">Advanced Laboratories</div>
+            <div class="rank-desc">Discipline-specific labs for hands-on engineering practice across all departments</div>
+          </div>
+        </div>
+        <div class="ranking-card">
+          <div class="rank-badge">🏥</div>
+          <div class="rank-body">
+            <div class="rank-org">Medical & Cafeteria</div>
+            <div class="rank-desc">On-campus dispensary, emergency vans, and a cafeteria with diverse food options</div>
+          </div>
+        </div>
+        <div class="ranking-card">
+          <div class="rank-badge">🎭</div>
+          <div class="rank-body">
+            <div class="rank-org">Auditorium</div>
+            <div class="rank-desc">Spacious auditorium for conferences, seminars, cultural events and graduation ceremonies</div>
+          </div>
+        </div>
+        <div class="ranking-card">
+          <div class="rank-badge">🌿</div>
+          <div class="rank-body">
+            <div class="rank-org">Green Hill Campus</div>
+            <div class="rank-desc">Eco-friendly 25-acre campus in the Nilgiris — one of the most scenic college campuses in South India</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== NOTABLE HIGHLIGHTS ===================== -->
+  <section class="alumni-section" id="alumni">
+    <div class="container">
+      <span class="tag">Notable Highlights</span>
+      <h2 class="section-title">Distinguished Visitors & Achievements</h2>
+      <p class="section-subtitle">CSICE has hosted some of India's most celebrated scientists, leaders and achievers over its 25+ year history.</p>
+      <div class="alumni-grid">
+        <div class="alumni-card">
+          <div class="alumni-avatar">APJ</div>
+          <div class="alumni-name">Dr. A.P.J. Abdul Kalam</div>
+          <div class="alumni-role">Former President of India</div>
+          <div class="alumni-dept">Addressed & interacted with CSICE students — February 21, 2012</div>
+        </div>
+        <div class="alumni-card">
+          <div class="alumni-avatar">RS</div>
+          <div class="alumni-name">Wing Cdr. Rakesh Sharma</div>
+          <div class="alumni-role">India's First Astronaut</div>
+          <div class="alumni-dept">Participated in CSE Dept. students' association inauguration — Auritz</div>
+        </div>
+        <div class="alumni-card">
+          <div class="alumni-avatar">GM</div>
+          <div class="alumni-name">G. Madhavan Nair</div>
+          <div class="alumni-role">Former Chairman, ISRO</div>
+          <div class="alumni-dept">Chief guest at CSICE Space Science Exhibition, Ketti</div>
+        </div>
+        <div class="alumni-card">
+          <div class="alumni-avatar">TT</div>
+          <div class="alumni-name">Dr. Tessy Thomas</div>
+          <div class="alumni-role">Director — Agni Missile Programme</div>
+          <div class="alumni-dept">Chief Guest at Mechanical Engineering students' symposium</div>
+        </div>
+        <div class="alumni-card">
+          <div class="alumni-avatar">MRS</div>
+          <div class="alumni-name">M.R. Srinivasan</div>
+          <div class="alumni-role">Former Chairman, Atomic Energy Commission</div>
+          <div class="alumni-dept">Chief Guest at the 10th Graduation Day ceremony</div>
+        </div>
+        <div class="alumni-card">
+          <div class="alumni-avatar">RP</div>
+          <div class="alumni-name">Prof. R. Pradab</div>
+          <div class="alumni-role">HOD — Mechanical Engineering</div>
+          <div class="alumni-dept">Recognised as NPTEL Discipline Star for academic excellence</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER / CONTACT ===================== -->
+  <footer id="contact">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="uni-name">CSI College of Engineering</div>
+          <p>A self-financing institution founded by the Church of South India, Coimbatore Diocesan Council. Committed to equipping students with technical knowledge, skill, and ethical values to serve society.</p>
+          <div class="contact-item">📍 Ketti (Near Ooty), The Nilgiris – 643 215, Tamil Nadu, India</div>
+          <div class="contact-item">📞 <strong>Phone:</strong> +91 93450 99377</div>
+          <div class="contact-item">📞 <strong>Office:</strong> 0423 – 2517474, 2517581–83</div>
+          <div class="contact-item">📧 <strong>Email:</strong> principal@csice.edu.in</div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Academics</h4>
+          <ul>
+            <li><a href="https://csice.edu.in/courses-offered/">Courses Offered</a></li>
+            <li><a href="https://csice.edu.in/">Department of Civil Engg.</a></li>
+            <li><a href="https://csice.edu.in/">Department of Mechanical Engg.</a></li>
+            <li><a href="https://csice.edu.in/">Department of CSE</a></li>
+            <li><a href="https://csice.edu.in/">Department of ECE</a></li>
+            <li><a href="https://csice.edu.in/">Department of IT</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Campus Life</h4>
+          <ul>
+            <li><a href="https://csice.edu.in/">Library</a></li>
+            <li><a href="https://csice.edu.in/">Sports Facilities</a></li>
+            <li><a href="https://csice.edu.in/">Hostel</a></li>
+            <li><a href="https://csice.edu.in/">NSS & NCC</a></li>
+            <li><a href="https://csice.edu.in/">Youth Red Cross</a></li>
+            <li><a href="https://csice.edu.in/">Student Associations</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="https://csice.edu.in/">Admissions 2025–26</a></li>
+            <li><a href="https://csice.edu.in/">TNEA Counselling</a></li>
+            <li><a href="https://csice.edu.in/">Placements</a></li>
+            <li><a href="https://ic3c.in/">IC3C 2025 Conference</a></li>
+            <li><a href="https://csice.edu.in/">Innovation Voucher Program</a></li>
+            <li><a href="https://csice.edu.in/">AICTE Disclosures</a></li>
+            <li><a href="https://csice.edu.in/">Contact Us</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2025 CSI College of Engineering, Ketti, The Nilgiris. All Rights Reserved. &nbsp;|&nbsp;
+      <a href="https://csice.edu.in/" style="color:rgba(255,255,255,0.4);">csice.edu.in</a> &nbsp;|&nbsp;
+      <a href="mailto:principal@csice.edu.in" style="color:rgba(255,255,255,0.4);">principal@csice.edu.in</a>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Karunya Institute of Technology and Sciences</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ========================================
+       CSS VARIABLES — Edit colors/fonts here
+    ======================================== */
+    :root {
+      --primary:       #1a3a5c;   /* Deep navy — main brand color */
+      --accent:        #c8922a;   /* Gold — highlight/CTA color */
+      --accent-light:  #f0d080;   /* Light gold for backgrounds */
+      --bg:            #f8f6f1;   /* Off-white page background */
+      --white:         #ffffff;
+      --text-dark:     #1a1a2e;
+      --text-mid:      #4a4a6a;
+      --text-light:    #8888aa;
+      --border:        #e0ddd6;
+      --card-bg:       #ffffff;
+      --shadow:        0 4px 24px rgba(26,58,92,0.10);
+      --radius:        12px;
+      --font-display:  'Playfair Display', Georgia, serif;
+      --font-body:     'DM Sans', system-ui, sans-serif;
+    }
+
+    /* ========================================
+       RESET & BASE
+    ======================================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    /* ========================================
+       UTILITY
+    ======================================== */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+    .section-subtitle {
+      color: var(--text-mid);
+      font-size: 1rem;
+      margin-bottom: 40px;
+    }
+    .tag {
+      display: inline-block;
+      background: var(--accent-light);
+      color: var(--primary);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 100px;
+      margin-bottom: 12px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 12px 28px;
+      border-radius: 100px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: var(--white);
+    }
+    .btn-primary:hover { background: #b07820; transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+    .btn-outline:hover { background: var(--primary); color: var(--white); }
+
+    /* ========================================
+       TOP BAR
+    ======================================== */
+    .topbar {
+      background: var(--primary);
+      color: rgba(255,255,255,0.8);
+      font-size: 0.8rem;
+      padding: 8px 0;
+    }
+    .topbar .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .topbar a { color: rgba(255,255,255,0.75); transition: color 0.2s; }
+    .topbar a:hover { color: var(--accent-light); }
+    .topbar-links { display: flex; gap: 20px; }
+
+    /* ========================================
+       HEADER / NAV
+    ======================================== */
+    header {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 0;
+    }
+    .logo-block { display: flex; align-items: center; gap: 14px; }
+    .logo-mark {
+      width: 52px; height: 52px;
+      background: var(--primary);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--accent-light);
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .logo-text .uni-name {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1.2;
+    }
+    .logo-text .uni-sub {
+      font-size: 0.72rem;
+      color: var(--text-light);
+      letter-spacing: 0.04em;
+    }
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 4px;
+    }
+    .nav-links li a {
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text-mid);
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .nav-links li a:hover,
+    .nav-links li a.active {
+      background: var(--bg);
+      color: var(--primary);
+    }
+    .nav-cta { display: flex; gap: 10px; align-items: center; }
+
+    /* ========================================
+       HERO
+    ======================================== */
+    .hero {
+      background: linear-gradient(135deg, var(--primary) 0%, #0f2540 100%);
+      color: var(--white);
+      padding: 80px 0 100px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(200,146,42,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .hero-tag {
+      display: inline-block;
+      background: rgba(200,146,42,0.2);
+      border: 1px solid rgba(200,146,42,0.4);
+      color: var(--accent-light);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 100px;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+    .hero h1 span { color: var(--accent-light); }
+    .hero p {
+      color: rgba(255,255,255,0.75);
+      font-size: 1.05rem;
+      margin-bottom: 36px;
+      max-width: 440px;
+    }
+    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-hero-primary {
+      background: var(--accent);
+      color: var(--white);
+      padding: 14px 32px;
+      border-radius: 100px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+    }
+    .btn-hero-primary:hover { background: #b07820; transform: translateY(-2px); }
+    .btn-hero-outline {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: var(--white);
+      padding: 14px 32px;
+      border-radius: 100px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+    }
+    .btn-hero-outline:hover { background: rgba(255,255,255,0.15); }
+    .hero-badges {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .badge-card {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius);
+      padding: 20px;
+      backdrop-filter: blur(8px);
+    }
+    .badge-card .badge-label {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.55);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+    .badge-card .badge-value {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent-light);
+    }
+    .badge-card .badge-desc {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.65);
+      margin-top: 2px;
+    }
+
+    /* ========================================
+       STATS STRIP
+    ======================================== */
+    .stats-strip {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 32px 0;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 0;
+    }
+    .stat-item {
+      text-align: center;
+      padding: 16px 12px;
+      border-right: 1px solid var(--border);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      margin-top: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* ========================================
+       ANNOUNCEMENTS BANNER
+    ======================================== */
+    .announcements {
+      background: #fff8e8;
+      border-top: 3px solid var(--accent);
+      padding: 14px 0;
+    }
+    .ann-inner {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      overflow: hidden;
+    }
+    .ann-tag {
+      background: var(--accent);
+      color: var(--white);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 4px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .ann-scroll {
+      display: flex;
+      gap: 40px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .ann-scroll::-webkit-scrollbar { display: none; }
+    .ann-item {
+      white-space: nowrap;
+      font-size: 0.88rem;
+      color: var(--text-dark);
+    }
+    .ann-item a { color: var(--primary); font-weight: 600; }
+    .ann-item a:hover { color: var(--accent); }
+
+    /* ========================================
+       SCHOOLS / PROGRAMS
+    ======================================== */
+    .programs-section { padding: 80px 0; }
+    .school-block { margin-bottom: 56px; }
+    .school-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid var(--border);
+    }
+    .school-icon {
+      width: 44px; height: 44px;
+      background: var(--primary);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+    }
+    .school-name {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      color: var(--primary);
+    }
+    .programs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .program-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      transition: all 0.25s;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .program-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: var(--accent);
+      transform: scaleY(0);
+      transform-origin: bottom;
+      transition: transform 0.25s;
+    }
+    .program-card:hover {
+      border-color: var(--accent);
+      box-shadow: var(--shadow);
+      transform: translateY(-3px);
+    }
+    .program-card:hover::before { transform: scaleY(1); }
+    .prog-emoji { font-size: 1.6rem; margin-bottom: 10px; }
+    .prog-name {
+      font-weight: 600;
+      font-size: 0.92rem;
+      color: var(--primary);
+      line-height: 1.4;
+    }
+    .prog-level {
+      font-size: 0.75rem;
+      color: var(--text-light);
+      margin-top: 6px;
+    }
+    .prog-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.78rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-top: 12px;
+    }
+    .prog-link:hover { text-decoration: underline; }
+
+    /* ========================================
+       ACCREDITATIONS
+    ======================================== */
+    .accred-section {
+      background: var(--white);
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+    }
+    .accred-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+    }
+    .accred-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+    .accred-name {
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+    .accred-desc {
+      font-size: 0.82rem;
+      color: var(--text-mid);
+      line-height: 1.5;
+    }
+
+    /* ========================================
+       NOTABLE ALUMNI
+    ======================================== */
+    .alumni-section { padding: 80px 0; }
+    .alumni-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .alumni-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      transition: box-shadow 0.2s;
+    }
+    .alumni-card:hover { box-shadow: var(--shadow); }
+    .alumni-avatar {
+      width: 52px; height: 52px;
+      background: var(--primary);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      color: var(--accent-light);
+      margin-bottom: 14px;
+      font-weight: 700;
+    }
+    .alumni-name {
+      font-weight: 700;
+      font-size: 0.98rem;
+      color: var(--primary);
+    }
+    .alumni-role {
+      font-size: 0.82rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-top: 3px;
+    }
+    .alumni-dept {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      margin-top: 2px;
+    }
+
+    /* ========================================
+       WHY KARUNYA SECTION
+    ======================================== */
+    .why-section {
+      background: linear-gradient(135deg, var(--primary) 0%, #0f2540 100%);
+      color: var(--white);
+      padding: 80px 0;
+    }
+    .why-section .section-title { color: var(--white); }
+    .why-section .section-subtitle { color: rgba(255,255,255,0.65); }
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .why-card {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius);
+      padding: 24px;
+      text-align: center;
+    }
+    .why-icon { font-size: 2rem; margin-bottom: 12px; }
+    .why-title { font-weight: 600; font-size: 0.92rem; color: var(--accent-light); margin-bottom: 6px; }
+    .why-desc { font-size: 0.82rem; color: rgba(255,255,255,0.65); }
+
+    /* ========================================
+       RANKINGS SECTION
+    ======================================== */
+    .rankings-section {
+      background: var(--white);
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+    }
+    .rankings-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+    }
+    .ranking-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .rank-badge {
+      background: var(--primary);
+      color: var(--accent-light);
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.1rem;
+      border-radius: 8px;
+      padding: 8px 12px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .rank-body .rank-org { font-weight: 700; font-size: 0.88rem; color: var(--primary); }
+    .rank-body .rank-desc { font-size: 0.78rem; color: var(--text-mid); margin-top: 3px; }
+
+    /* ========================================
+       CONTACT / FOOTER
+    ======================================== */
+    footer {
+      background: #0f1f35;
+      color: rgba(255,255,255,0.8);
+      padding: 60px 0 0;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .footer-brand .uni-name {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .footer-brand p {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .contact-item { font-size: 0.82rem; color: rgba(255,255,255,0.6); margin-bottom: 6px; }
+    .contact-item strong { color: rgba(255,255,255,0.85); }
+    .footer-col h4 {
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent-light);
+      margin-bottom: 16px;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 8px; }
+    .footer-col ul li a {
+      font-size: 0.84rem;
+      color: rgba(255,255,255,0.55);
+      transition: color 0.2s;
+    }
+    .footer-col ul li a:hover { color: var(--accent-light); }
+    .footer-bottom {
+      padding: 20px 0;
+      text-align: center;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.35);
+    }
+
+    /* ========================================
+       RESPONSIVE
+    ======================================== */
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+      .hero-badges { display: none; }
+      .stats-grid { grid-template-columns: repeat(3, 1fr); }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; }
+    }
+    @media (max-width: 600px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===================== TOP BAR ===================== -->
+  <div class="topbar">
+    <div class="container">
+      <span>📞 Toll Free: 1800 889 9888 &nbsp;|&nbsp; 1800 425 4300</span>
+      <div class="topbar-links">
+        <a href="https://karunya.edu/students">Students</a>
+        <a href="https://karunya.edu/faculty-and-staff">Faculty</a>
+        <a href="https://karunya.edu/families">Families</a>
+        <a href="https://kitsaa.org/">Alumni</a>
+        <a href="https://karunya.edu/payments">Payments</a>
+        <a href="https://karunya.edu/academiccalendar">Academic Calendar</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== HEADER ===================== -->
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo-block">
+          <div class="logo-mark">K</div>
+          <div class="logo-text">
+            <div class="uni-name">Karunya Institute of Technology and Sciences</div>
+            <div class="uni-sub">Deemed to be University · Coimbatore · NAAC A++</div>
+          </div>
+        </div>
+        <ul class="nav-links">
+          <li><a href="#about" class="active">About</a></li>
+          <li><a href="#programs">Academics</a></li>
+          <li><a href="#rankings">Rankings</a></li>
+          <li><a href="#accreditations">Accreditations</a></li>
+          <li><a href="#alumni">Alumni</a></li>
+          <li><a href="https://www.karunya.edu/research">Research</a></li>
+          <li><a href="https://www.karunya.edu/placements">Placements</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="nav-cta">
+          <a href="https://admissions.karunya.edu" class="btn btn-primary">Apply Now</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===================== ANNOUNCEMENTS ===================== -->
+  <div class="announcements">
+    <div class="container">
+      <div class="ann-inner">
+        <span class="ann-tag">📢 Latest</span>
+        <div class="ann-scroll">
+          <span class="ann-item">🎓 <a href="https://admissions.eduserve.app/">Admissions Open 2026</a> — Apply Now</span>
+          <span class="ann-item">👤 <a href="https://karunya.edu/drjames">Thanks giving letter to Prof. E.J. James</a></span>
+          <span class="ann-item">💼 <a href="https://karunya.edu/careers">We are Hiring — Dean / Leadership Positions</a></span>
+          <span class="ann-item">👩‍🏫 <a href="https://karunya.edu/careers">We are Hiring — Faculty Positions 2025</a></span>
+          <span class="ann-item">🖥️ <a href="https://kcode.karunya.edu/">Online MBA & B.Com — KCODE</a></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero" id="about">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <span class="hero-tag">🏆 India's Top Ranked University</span>
+          <h1>Where Karunyans Grow to <span>Change the World</span></h1>
+          <p>
+            Karunya Institute of Technology and Sciences — a NAAC A++ accredited Deemed University
+            in Coimbatore, Tamil Nadu. Shaping scientists, engineers, and entrepreneurs to solve
+            humanity's most pressing challenges in food, water, healthcare, and energy.
+          </p>
+          <div class="hero-btns">
+            <a href="https://admissions.karunya.edu" class="btn-hero-primary">Explore Programs</a>
+            <a href="https://www.karunya.edu/visit" class="btn-hero-outline">Virtual Campus Tour</a>
+          </div>
+        </div>
+        <div class="hero-badges">
+          <div class="badge-card">
+            <div class="badge-label">Accreditation</div>
+            <div class="badge-value">NAAC A++</div>
+            <div class="badge-desc">Highest national grade</div>
+          </div>
+          <div class="badge-card">
+            <div class="badge-label">QS Asia Ranking</div>
+            <div class="badge-value">#694</div>
+            <div class="badge-desc">QS Asia 2026</div>
+          </div>
+          <div class="badge-card">
+            <div class="badge-label">THE World Rank</div>
+            <div class="badge-value">1201–1500</div>
+            <div class="badge-desc">Research rank #877</div>
+          </div>
+          <div class="badge-card">
+            <div class="badge-label">UGC Category</div>
+            <div class="badge-value">Cat. 1</div>
+            <div class="badge-desc">Government of India</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== STATS STRIP ===================== -->
+  <div class="stats-strip">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-number">30+</div>
+          <div class="stat-label">Years & Counting</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">300+</div>
+          <div class="stat-label">Acres Campus</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">10,000+</div>
+          <div class="stat-label">Active Students</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">2,000+</div>
+          <div class="stat-label">Placement Offers 2025</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">30,000+</div>
+          <div class="stat-label">Alumni Worldwide</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">Up to 100%</div>
+          <div class="stat-label">Scholarships Available</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== SCHOOLS & PROGRAMS ===================== -->
+  <section class="programs-section" id="programs">
+    <div class="container">
+      <span class="tag">Academics</span>
+      <h2 class="section-title">Schools & Programs</h2>
+      <p class="section-subtitle">Five schools offering UG, PG, and PhD programs across engineering, science, management, and agriculture.</p>
+
+      <!-- School 1: Engineering & Technology -->
+      <div class="school-block">
+        <div class="school-header">
+          <div class="school-icon">⚙️</div>
+          <div>
+            <div class="school-name">School of Engineering and Technology</div>
+          </div>
+        </div>
+        <div class="programs-grid">
+          <div class="program-card">
+            <div class="prog-emoji">🏗️</div>
+            <div class="prog-name">Civil Engineering</div>
+            <div class="prog-level">B.Tech / M.Tech / Ph.D</div>
+            <a href="https://karunya.edu/division-of-civil-engineering/" class="prog-link">Learn more →</a>
+          </div>
+          <div class="program-card">
+            <div class="prog-emoji">⚡</div>
+            <div class="prog-name">Electrical and Electronics Engineering</div>
+            <div class="prog-level">B.Tech / M.Tech / Ph.D</div>
+            <a href="https://karunya.edu/division-of-electrical-and-electronics-engineering/" class="prog-link">Learn more →</a>
+          </div>
+          <div class="program-card">
+            <div class="prog-emoji">📡</div>
+            <div class="prog-name">Electronics and Communication Engineering</div>
+            <div class="prog-level">B.Tech / M.Tech / Ph.D</div>
+            <a href="https://karunya.edu/division-of-electronics-and-communication-engineering/" class="prog-link">Learn more →</a>
+          </div>
+          <div class="program-card">
+            <div class="prog-emoji">🤖</div>
+            <div class="prog-name">Robotics Engineering</div>
+            <div class="prog-level">B.Tech / M.Tech / Ph.D</div>
+            <a href="https://karunya.edu/division-of-robotics-engineering/" class="prog-link">Learn more →</a>
+          </div>
+          <div class="program-card">
+            <div class="prog-emoji">🔧</div>
+            <div class="prog-name">Mechanical Engineering</div>
+            <div class="prog-level">B.Tech / M.Tech / Ph.D</div>
+            <a href="https://karunya.edu/division-of-mechanical-engineering/" class="prog-link">Learn more →</a>
+          </div>
+          <div class="program-card">
+            <div class="prog-emoji">✈️</div>
+            <div class="prog-name">Aerospace Engineering</div>
+            <div class="prog-level">B.Tech / M.Tech / Ph.D</div>
+            <a href="https://karunya.edu/division-of-aerospace-engineering/" class="prog-link">Learn more →</a>
+          </div>
+          <div class="program-card">
+            <div class="prog-emoji">🩺</div>
+            <div class="prog-name">Biomedical Engineering</div>
+            <div class="prog-level">B.Tech / M.Tech / Ph.D</div>
+            <a href="https://karunya.edu/division-of-biomedical-engineering/" class="prog-link">Learn more →</a>
+          </div>
+          <div class="program-card">
+            <div class="prog-emoji">🧬</div>
+            <div class="prog-name">Bio-Technology</div>
+            <div class="prog-level">B.Tech / M.Tech / Ph.D</div>
+            <a href="https://www.karunya.edu/biotechnology" class="prog-link">Learn more →</a>
+          </div>
+          <div class="program-card">
+            <div class="prog-emoji">🍞</div>
+            <div class="prog-name">Food Processing Technology</div>
+            <div class="prog-level">B.Tech / M.Tech / Ph.D</div>
+            <a href="https://www.karunya.edu/food" class="prog-link">Learn more →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- School 2: Computer Science -->
+      <div class="school-block">
+        <div class="school-header">
+          <div class="school-icon">💻</div>
+          <div>
+            <div class="school-name">School of Computer Science and Technology</div>
+          </div>
+        </div>
+        <div class="programs-grid">
+          <div class="program-card">
+            <div class="prog-emoji">🖥️</div>
+            <div class="prog-name">Computer Science and Engineering</div>
+            <div class="prog-level">B.Tech / M.Tech / Ph.D</div>
+            <a href="https://www.karunya.edu/cse" class="prog-link">Learn more →</a>
+          </div>
+          <div class="program-card">
+            <div class="prog-emoji">🔐</div>
+            <div class="prog-name">Data Science and Cyber Security</div>
+            <div class="prog-level">B.Tech / M.Tech / Ph.D</div>
+            <a href="https://www.karunya.edu/ds" class="prog-link">Learn more →</a>
+          </div>
+          <div class="program-card">
+            <div class="prog-emoji">🧠</div>
+            <div class="prog-name">Artificial Intelligence and Machine Learning</div>
+            <div class="prog-level">B.Tech / M.Tech / Ph.D</div>
+            <a href="https://www.karunya.edu/ai" class="prog-link">Learn more →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- School 3: Sciences, Arts & Media -->
+      <div class="school-block">
+        <div class="school-header">
+          <div class="school-icon">🔬</div>
+          <div>
+            <div class="school-name">School of Sciences, Arts and Media</div>
+          </div>
+        </div>
+        <div class="programs-grid">
+          <div class="program-card">
+            <div class="prog-emoji">⚗️</div>
+            <div class="prog-name">Applied Chemistry</div>
+            <div class="prog-level">B.Sc / M.Sc / Ph.D</div>
+            <a href="https://www.karunya.edu/chemistry" class="prog-link">Learn more →</a>
+          </div>
+          <div class="program-card">
+            <div class="prog-emoji">🔭</div>
+            <div class="prog-name">Applied Physics</div>
+            <div class="prog-level">B.Sc / M.Sc / Ph.D</div>
+            <a href="https://www.karunya.edu/physics" class="prog-link">Learn more →</a>
+          </div>
+          <div class="program-card">
+            <div class="prog-emoji">⚛️</div>
+            <div class="prog-name">Nano-Sciences</div>
+            <div class="prog-level">M.Sc / Ph.D</div>
+            <a href="https://www.karunya.edu/nanosciences" class="prog-link">Learn more →</a>
+          </div>
+          <div class="program-card">
+            <div class="prog-emoji">📺</div>
+            <div class="prog-name">Media & Communication</div>
+            <div class="prog-level">B.A / M.A / Ph.D</div>
+            <a href="https://www.karunya.edu/mc" class="prog-link">Learn more →</a>
+          </div>
+          <div class="program-card">
+            <div class="prog-emoji">🌐</div>
+            <div class="prog-name">Digital Sciences</div>
+            <div class="prog-level">B.Sc / M.Sc</div>
+            <a href="https://www.karunya.edu/digitalsciences" class="prog-link">Learn more →</a>
+          </div>
+          <div class="program-card">
+            <div class="prog-emoji">💹</div>
+            <div class="prog-name">Commerce & International Trade</div>
+            <div class="prog-level">B.Com / M.Com / Ph.D</div>
+            <a href="https://www.karunya.edu/commerce" class="prog-link">Learn more →</a>
+          </div>
+          <div class="program-card">
+            <div class="prog-emoji">🔍</div>
+            <div class="prog-name">Criminology and Forensic Science</div>
+            <div class="prog-level">B.Sc / M.Sc</div>
+            <a href="https://www.karunya.edu/criminology" class="prog-link">Learn more →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- School 4: Management -->
+      <div class="school-block">
+        <div class="school-header">
+          <div class="school-icon">📊</div>
+          <div>
+            <div class="school-name">Karunya School of Management</div>
+          </div>
+        </div>
+        <div class="programs-grid">
+          <div class="program-card">
+            <div class="prog-emoji">🎓</div>
+            <div class="prog-name">Management Studies (MBA)</div>
+            <div class="prog-level">MBA / Online MBA / Ph.D</div>
+            <a href="https://www.karunya.edu/mba" class="prog-link">Learn more →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- School 5: Agricultural Sciences -->
+      <div class="school-block">
+        <div class="school-header">
+          <div class="school-icon">🌾</div>
+          <div>
+            <div class="school-name">School of Agricultural Sciences</div>
+          </div>
+        </div>
+        <div class="programs-grid">
+          <div class="program-card">
+            <div class="prog-emoji">🌱</div>
+            <div class="prog-name">Agriculture</div>
+            <div class="prog-level">B.Sc / M.Sc / Ph.D</div>
+            <a href="https://www.karunya.edu/agriculture" class="prog-link">Learn more →</a>
+          </div>
+          <div class="program-card">
+            <div class="prog-emoji">💧</div>
+            <div class="prog-name">Water Institute — Centre of Excellence</div>
+            <div class="prog-level">Research / M.Tech / Ph.D</div>
+            <a href="https://www.karunya.edu/wi" class="prog-link">Learn more →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== WHY KARUNYA ===================== -->
+  <section class="why-section">
+    <div class="container">
+      <span class="tag" style="background:rgba(200,146,42,0.2);color:var(--accent-light);">Why Choose Us</span>
+      <h2 class="section-title" style="color:var(--white);margin-top:8px;">Why Choose Karunya</h2>
+      <p class="section-subtitle">Distinctive advantages that set Karunya apart for B.Tech, M.Tech, MBA, Agriculture, and PhD journeys.</p>
+      <div class="why-grid">
+        <div class="why-card">
+          <div class="why-icon">🏭</div>
+          <div class="why-title">Industry Powered Programs</div>
+          <div class="why-desc">Curriculum co-designed with industry partners for real-world readiness.</div>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">💼</div>
+          <div class="why-title">Work with MNCs & Earn</div>
+          <div class="why-desc">Earn while you study through MNC partnerships and live projects.</div>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">🌍</div>
+          <div class="why-title">International Internships</div>
+          <div class="why-desc">Access internship opportunities across 85+ countries worldwide.</div>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">🔬</div>
+          <div class="why-title">World's Top 2% Scientists</div>
+          <div class="why-desc">Learn directly from faculty ranked among the world's top 2% researchers.</div>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">🎯</div>
+          <div class="why-title">100% Placement Opportunities</div>
+          <div class="why-desc">Dedicated placement cell with 2,000+ offers in 2025 and counting.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ACCREDITATIONS ===================== -->
+  <section class="accred-section" id="accreditations">
+    <div class="container">
+      <span class="tag">Accreditations & Approvals</span>
+      <h2 class="section-title">Recognised by Leading Bodies</h2>
+      <p class="section-subtitle">Karunya holds accreditations and approvals from the most respected national and international authorities.</p>
+      <div class="accred-grid">
+        <div class="accred-card">
+          <div class="accred-name">🏅 NAAC A++ — Highest Grade</div>
+          <div class="accred-desc">National Assessment and Accreditation Council — highest grade for outstanding academic practices and institutional quality.</div>
+        </div>
+        <div class="accred-card">
+          <div class="accred-name">🏛️ UGC Category 1 Institution</div>
+          <div class="accred-desc">Recognised by the University Grants Commission as a Category 1 Institution for excellence and academic autonomy.</div>
+        </div>
+        <div class="accred-card">
+          <div class="accred-name">🔩 NBA — National Board of Accreditation</div>
+          <div class="accred-desc">Accredited for quality and high academic standards across Engineering and Management programs.</div>
+        </div>
+        <div class="accred-card">
+          <div class="accred-name">📋 AICTE Approved</div>
+          <div class="accred-desc">All India Council for Technical Education approval for meeting national standards in technical and professional education.</div>
+        </div>
+        <div class="accred-card">
+          <div class="accred-name">🌿 ICAR Approved</div>
+          <div class="accred-desc">Indian Council of Agricultural Research approval for quality agricultural education, research, and field training.</div>
+        </div>
+        <div class="accred-card">
+          <div class="accred-name">💼 ACCA Academic Alignment</div>
+          <div class="accred-desc">Association of Chartered Certified Accountants alignment for B.Com and Management programs in accounting, audit, and finance.</div>
+        </div>
+        <div class="accred-card">
+          <div class="accred-name">🇮🇳 Ministry of Education, GoI</div>
+          <div class="accred-desc">Recognised by the Government of India Ministry of Education as a trusted institution in higher education.</div>
+        </div>
+        <div class="accred-card">
+          <div class="accred-name">⭐ QS I·GAUGE — Platinum Rated</div>
+          <div class="accred-desc">Rated Platinum by QS I·GAUGE for excellence in academics, research, and institutional quality.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== RANKINGS ===================== -->
+  <section class="rankings-section" id="rankings">
+    <div class="container">
+      <span class="tag">Rankings</span>
+      <h2 class="section-title">Global & National Rankings</h2>
+      <p class="section-subtitle">Karunya's performance across leading national and international ranking frameworks.</p>
+      <div class="rankings-grid">
+        <div class="ranking-card">
+          <div class="rank-badge">#694</div>
+          <div class="rank-body">
+            <div class="rank-org">QS Asia 2026</div>
+            <div class="rank-desc">Overall Asia ranking — QS World University Rankings</div>
+          </div>
+        </div>
+        <div class="ranking-card">
+          <div class="rank-badge">#447</div>
+          <div class="rank-body">
+            <div class="rank-org">QS Asia Sustainability 2025</div>
+            <div class="rank-desc">Asia band — QS Sustainability Rankings</div>
+          </div>
+        </div>
+        <div class="ranking-card">
+          <div class="rank-badge">#52</div>
+          <div class="rank-body">
+            <div class="rank-org">QS India Sustainability 2025</div>
+            <div class="rank-desc">India band — QS Sustainability Rankings</div>
+          </div>
+        </div>
+        <div class="ranking-card">
+          <div class="rank-badge">1201–1500</div>
+          <div class="rank-body">
+            <div class="rank-org">THE World 2026</div>
+            <div class="rank-desc">Global band — Research rank #877</div>
+          </div>
+        </div>
+        <div class="ranking-card">
+          <div class="rank-badge">401–500</div>
+          <div class="rank-body">
+            <div class="rank-org">THE Asia 2025</div>
+            <div class="rank-desc">Asia band — Times Higher Education</div>
+          </div>
+        </div>
+        <div class="ranking-card">
+          <div class="rank-badge">351–400</div>
+          <div class="rank-body">
+            <div class="rank-org">THE Interdisciplinary 2026</div>
+            <div class="rank-desc">Schmidt Science Fellows partnership ranking</div>
+          </div>
+        </div>
+        <div class="ranking-card">
+          <div class="rank-badge">601–800</div>
+          <div class="rank-body">
+            <div class="rank-org">THE Computer Science 2025</div>
+            <div class="rank-desc">Subject ranking — Computer Science</div>
+          </div>
+        </div>
+        <div class="ranking-card">
+          <div class="rank-badge">#346</div>
+          <div class="rank-body">
+            <div class="rank-org">UI GreenMetric 2024</div>
+            <div class="rank-desc">World ranking for green campus initiatives</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== NOTABLE ALUMNI ===================== -->
+  <section class="alumni-section" id="alumni">
+    <div class="container">
+      <span class="tag">Alumni</span>
+      <h2 class="section-title">Notable Alumni</h2>
+      <p class="section-subtitle">Karunya graduates making a difference across industries and continents.</p>
+      <div class="alumni-grid">
+        <div class="alumni-card">
+          <div class="alumni-avatar">SM</div>
+          <div class="alumni-name">Mr. Senthil Muthiah</div>
+          <div class="alumni-role">Partner — McKinsey & Company, Boston</div>
+          <div class="alumni-dept">ECE, Class of 1994</div>
+        </div>
+        <div class="alumni-card">
+          <div class="alumni-avatar">JS</div>
+          <div class="alumni-name">Mr. Jonathan Samuel</div>
+          <div class="alumni-role">President & CEO — KSB GIW, Inc.</div>
+          <div class="alumni-dept">Mechanical, Class of 1990</div>
+        </div>
+        <div class="alumni-card">
+          <div class="alumni-avatar">VJ</div>
+          <div class="alumni-name">Mr. Vijin Jenius</div>
+          <div class="alumni-role">Group Director — ISRO</div>
+          <div class="alumni-dept">ECE, Class of 1995</div>
+        </div>
+        <div class="alumni-card">
+          <div class="alumni-avatar">ND</div>
+          <div class="alumni-name">Mr. Newin Durai</div>
+          <div class="alumni-role">Executive VP & Global Head — Oracle Services</div>
+          <div class="alumni-dept">Mechanical, Class of 1993</div>
+        </div>
+        <div class="alumni-card">
+          <div class="alumni-avatar">SS</div>
+          <div class="alumni-name">Mr. Selvinson SJS</div>
+          <div class="alumni-role">Senior Vice President — Reliance Jio</div>
+          <div class="alumni-dept">ECE, Class of 1994</div>
+        </div>
+        <div class="alumni-card">
+          <div class="alumni-avatar">JD</div>
+          <div class="alumni-name">Ms. Jen Dawson</div>
+          <div class="alumni-role">Head of Global Channel — Postman</div>
+          <div class="alumni-dept">ECE, Class of 1992</div>
+        </div>
+        <div class="alumni-card">
+          <div class="alumni-avatar">KM</div>
+          <div class="alumni-name">Mr. K R Moses</div>
+          <div class="alumni-role">Managing Director — Allison Transmission</div>
+          <div class="alumni-dept">ECE, Class of 1994</div>
+        </div>
+        <div class="alumni-card">
+          <div class="alumni-avatar">JK</div>
+          <div class="alumni-name">Mr. John Anand Kumar</div>
+          <div class="alumni-role">Senior VP — Bank of America</div>
+          <div class="alumni-dept">CSE, Class of 1998</div>
+        </div>
+        <div class="alumni-card">
+          <div class="alumni-avatar">PJ</div>
+          <div class="alumni-name">Mr. Paul Jeyasingh</div>
+          <div class="alumni-role">AVP — AI & Analytics</div>
+          <div class="alumni-dept">Mechanical, Class of 1993</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER / CONTACT ===================== -->
+  <footer id="contact">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="uni-name">Karunya Institute of Technology and Sciences</div>
+          <p>A Deemed University with a social concern — raising scientists and entrepreneurs to solve challenges in food, water, healthcare, and energy.</p>
+          <div class="contact-item">📍 Karunya Nagar, Coimbatore – 641 114, Tamil Nadu, India</div>
+          <div class="contact-item">📞 <strong>Toll Free:</strong> 1800 889 9888 | 1800 425 4300</div>
+          <div class="contact-item">📧 <strong>Email:</strong> info@karunya.edu</div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Academics</h4>
+          <ul>
+            <li><a href="https://www.karunya.edu/schools">Schools & Programs</a></li>
+            <li><a href="https://www.karunya.edu/academics">Academic Affairs</a></li>
+            <li><a href="https://www.karunya.edu/coe">Examination</a></li>
+            <li><a href="https://www.karunya.edu/research">Research</a></li>
+            <li><a href="https://www.karunya.edu/library">Central Library</a></li>
+            <li><a href="https://karunya.edu/academiccalendar">Academic Calendar</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Campus Life</h4>
+          <ul>
+            <li><a href="https://www.karunya.edu/infrastructure">Infrastructure</a></li>
+            <li><a href="https://www.karunya.edu/greencampus">Green Campus</a></li>
+            <li><a href="https://www.karunya.edu/campuslife/ped">Physical Education</a></li>
+            <li><a href="https://www.karunya.edu/ktbip">Tech Business Incubation</a></li>
+            <li><a href="https://www.karunya.edu/kids">Innovation & Design Studio</a></li>
+            <li><a href="https://www.karunya.edu/placements">Placements</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="https://admissions.karunya.edu">Admissions 2026</a></li>
+            <li><a href="https://karunya.edu/internationalaffairs/">International Affairs</a></li>
+            <li><a href="https://kitsaa.org/">Alumni (KITSAA)</a></li>
+            <li><a href="https://www.karunya.edu/careers">Careers</a></li>
+            <li><a href="https://www.karunya.edu/ranking">Rankings & Recognitions</a></li>
+            <li><a href="https://www.karunya.edu/nirf">NIRF</a></li>
+            <li><a href="https://www.karunya.edu/iqac">IQAC</a></li>
+            <li><a href="https://karunya.edu/feedback">Feedback</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2025 Karunya Institute of Technology and Sciences. All Rights Reserved. &nbsp;|&nbsp;
+      <a href="https://karunya.edu/universitypolicies" style="color:rgba(255,255,255,0.4);">University Policies</a> &nbsp;|&nbsp;
+      <a href="https://karunya.edu/rti" style="color:rgba(255,255,255,0.4);">RTI</a>
+    </div>
+  </footer>
+
+</body>
+</html>
